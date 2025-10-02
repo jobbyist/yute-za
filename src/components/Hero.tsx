@@ -16,14 +16,14 @@ export const Hero = () => {
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-full shadow-[var(--shadow-soft)] animate-fade-in">
             <Sparkles className="w-4 h-4 text-primary" />
             <span className="text-sm font-medium text-foreground">
-              South Africa's Next Generation Financial Wellness & Literacy Platform
+              SA's Next-Generation Financial Wellness & Literacy Platform
             </span>
           </div>
 
           {/* Main heading */}
           <div className="space-y-4 animate-fade-in">
             <h1 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight">
-              South Africa's Next-Generation Financial Wellness & Literacy Platform
+              SA's Next-Generation Financial Wellness & Literacy Platform
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
               Your AI-powered companion for financial growth, learning, and community connection
@@ -37,7 +37,7 @@ export const Hero = () => {
                 <TrendingUp className="w-6 h-6 text-primary" />
               </div>
               <h3 className="text-2xl font-bold text-foreground mb-1">10k+</h3>
-              <p className="text-sm text-muted-foreground">Young Professionals</p>
+              <p className="text-sm text-muted-foreground">Active Members</p>
             </div>
             <div className="bg-card border border-border rounded-2xl p-6 shadow-[var(--shadow-medium)]">
               <div className="flex items-center justify-center w-12 h-12 bg-secondary/10 rounded-xl mb-4 mx-auto">
