@@ -14,7 +14,7 @@ export const Navigation = () => {
             <img 
               src="/yuteblack.svg" 
               alt="YUTE Logo" 
-              style={{ width: '175px', height: 'auto' }}
+              style={{ width: '125px', height: 'auto' }}
             />
           </div>
 
