@@ -26,11 +26,11 @@ export const Navigation = () => {
             <Link to="/stokie-circles" className="text-foreground hover:text-primary transition-colors font-medium">
               🏦 Stokie Circles
             </Link>
+            <Link to="/academy" className="text-foreground hover:text-primary transition-colors font-medium">
+              📚 YUTE Academy
+            </Link>
             <a href="#ai" className="text-foreground hover:text-primary transition-colors font-medium">
               ✨ AI Assistant
-            </a>
-            <a href="#education" className="text-foreground hover:text-primary transition-colors font-medium">
-              📚 Course Library
             </a>
             <a href="#credit" className="text-foreground hover:text-primary transition-colors font-medium">
               🗄️ Resource Center
@@ -61,11 +61,11 @@ export const Navigation = () => {
             <Link to="/stokie-circles" className="block text-foreground hover:text-primary transition-colors font-medium">
               🏦 Stokie Circles
             </Link>
+            <Link to="/academy" className="block text-foreground hover:text-primary transition-colors font-medium">
+              📚 YUTE Academy
+            </Link>
             <a href="#ai" className="block text-foreground hover:text-primary transition-colors font-medium">
               ✨ AI Assistant
-            </a>
-            <a href="#education" className="block text-foreground hover:text-primary transition-colors font-medium">
-              📚 Course Library
             </a>
             <a href="#resources" className="block text-foreground hover:text-primary transition-colors font-medium">
               🗄️ Resource Center

@@ -7,6 +7,9 @@ import { AuthProvider, ProtectedRoute } from "@/hooks/useAuth";
 import Index from "./pages/Index";
 import StokieCircles from "./pages/StokieCircles";
 import CircleDetail from "./pages/CircleDetail";
+import YuteAcademy from "./pages/YuteAcademy";
+import LearningPathDetail from "./pages/LearningPathDetail";
+import CoursePlayer from "./pages/CoursePlayer";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
 import Onboarding from "./pages/Onboarding";
@@ -29,6 +32,19 @@ const App = () => (
               element={
                 <ProtectedRoute>
                   <CircleDetail />
+                </ProtectedRoute>
+              } 
+            />
+            <Route path="/academy" element={<YuteAcademy />} />
+            <Route 
+              path="/academy/path/:pathId" 
+              element={<LearningPathDetail />} 
+            />
+            <Route 
+              path="/academy/course/:courseId" 
+              element={
+                <ProtectedRoute>
+                  <CoursePlayer />
                 </ProtectedRoute>
               } 
             />
