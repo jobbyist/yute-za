@@ -4,6 +4,7 @@ import { Features } from "@/components/Features";
 import { AIDemo } from "@/components/AIDemo";
 import { Community } from "@/components/Community";
 import { CTA } from "@/components/CTA";
+import { ChatBot } from "@/components/ChatBot";
 
 const Index = () => {
   return (
@@ -16,6 +17,7 @@ const Index = () => {
         <Community />
         <CTA />
       </main>
+      <ChatBot />
       <footer className="bg-muted/50 border-t border-border py-12 px-4">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center text-muted-foreground">

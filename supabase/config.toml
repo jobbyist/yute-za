@@ -1,0 +1,4 @@
+project_id = "utzepvjyawsflkoeafzo"
+
+[functions.chat-with-gcinimali]
+verify_jwt = false
