@@ -29,7 +29,7 @@ const Index = () => {
               />
             </div>
             <p className="text-sm">
-              South Africa's Next Generation Financial Wellness & Literacy Platform
+              SA's Next-Generation Financial Wellness & Literacy Platform
             </p>
             <p className="text-xs mt-4">
               © 2025 YUTE. All rights reserved.
