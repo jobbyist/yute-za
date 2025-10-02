@@ -22,8 +22,8 @@ export const Hero = () => {
 
           {/* Main heading */}
           <div className="space-y-4 animate-fade-in">
-            <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight">
-              Welcome to YUTE™
+            <h1 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight">
+              South Africa's Next-Generation Financial Wellness & Literacy Platform
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
               Your AI-powered companion for financial growth, learning, and community connection
@@ -56,7 +56,7 @@ export const Hero = () => {
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in pb-8">
             <Button variant="hero" size="lg" className="min-w-[200px]">
               Get Started Free
             </Button>
