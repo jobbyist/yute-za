@@ -62,12 +62,35 @@ This project is built with:
 
 ## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/28ac1135-8f17-4889-8f63-6cbf7b1fc0d9) and click on Share -> Publish.
+This project is configured to deploy automatically to GitHub Pages with the custom domain **yute.co.za**.
 
-## Can I connect a custom domain to my Lovable project?
+### Automatic Deployment
 
-Yes, you can!
+The repository includes a GitHub Actions workflow that automatically deploys the site to GitHub Pages whenever you push to the `main` branch.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+To enable GitHub Pages:
+1. Go to your repository Settings > Pages
+2. Under "Build and deployment", select "GitHub Actions" as the source
+3. The workflow will automatically build and deploy your site
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+### Custom Domain Setup
+
+The custom domain `yute.co.za` is already configured via the `CNAME` file in the `public` directory.
+
+To complete the domain setup:
+1. In your DNS provider, add a CNAME record pointing `yute.co.za` to `<username>.github.io`
+2. GitHub Pages will automatically handle the SSL certificate via Let's Encrypt
+
+### Environment Variables
+
+Make sure to add the following secrets in your repository settings (Settings > Secrets and variables > Actions):
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_PUBLISHABLE_KEY`
+
+### Manual Deployment
+
+You can also trigger a deployment manually from the Actions tab in your repository.
+
+### Alternative: Deploy via Lovable
+
+You can also open [Lovable](https://lovable.dev/projects/28ac1135-8f17-4889-8f63-6cbf7b1fc0d9) and click on Share -> Publish.
