@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,18 +12,20 @@ export const Navigation = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <img 
-              src="/yuteblack.svg" 
-              alt="YUTE Logo" 
-              style={{ width: '110px', height: 'auto' }}
-            />
+            <Link to="/">
+              <img 
+                src="/yuteblack.svg" 
+                alt="YUTE Logo" 
+                style={{ width: '110px', height: 'auto' }}
+              />
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            <a href="#stokvel" className="text-foreground hover:text-primary transition-colors font-medium">
+            <Link to="/stokie-circles" className="text-foreground hover:text-primary transition-colors font-medium">
               🏦 Stokie Circles
-            </a>
+            </Link>
             <a href="#ai" className="text-foreground hover:text-primary transition-colors font-medium">
               ✨ AI Assistant
             </a>
@@ -55,9 +58,9 @@ export const Navigation = () => {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden py-4 space-y-4 border-t border-border">
-            <a href="#stokvel" className="block text-foreground hover:text-primary transition-colors font-medium">
+            <Link to="/stokie-circles" className="block text-foreground hover:text-primary transition-colors font-medium">
               🏦 Stokie Circles
-            </a>
+            </Link>
             <a href="#ai" className="block text-foreground hover:text-primary transition-colors font-medium">
               ✨ AI Assistant
             </a>
