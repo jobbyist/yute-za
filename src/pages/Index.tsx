@@ -21,7 +21,13 @@ const Index = () => {
       <footer className="bg-muted/50 border-t border-border py-12 px-4">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center text-muted-foreground">
-            <p className="text-lg font-semibold mb-2">YUTE™</p>
+            <div className="flex justify-center mb-2">
+              <img 
+                src="/yuteblack.svg" 
+                alt="YUTE Logo" 
+                style={{ width: '100px', height: 'auto' }}
+              />
+            </div>
             <p className="text-sm">
               South Africa's Next Generation Financial Wellness & Literacy Platform
             </p>

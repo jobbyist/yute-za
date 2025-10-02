@@ -13,7 +13,7 @@ export const CTA = () => {
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6">
             <Sparkles className="w-4 h-4 text-primary" />
             <span className="text-sm font-medium text-primary">
-              Join 10,000+ Young South Africans
+              Join 10K+ Young South Africans
             </span>
           </div>
 
