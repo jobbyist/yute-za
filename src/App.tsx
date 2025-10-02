@@ -10,6 +10,7 @@ import CircleDetail from "./pages/CircleDetail";
 import YuteAcademy from "./pages/YuteAcademy";
 import LearningPathDetail from "./pages/LearningPathDetail";
 import CoursePlayer from "./pages/CoursePlayer";
+import BadgesPage from "./pages/BadgesPage";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
 import Onboarding from "./pages/Onboarding";
@@ -48,6 +49,7 @@ const App = () => (
                 </ProtectedRoute>
               } 
             />
+            <Route path="/badges" element={<BadgesPage />} />
             <Route path="/auth" element={<Auth />} />
             <Route 
               path="/profile" 

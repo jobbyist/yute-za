@@ -134,6 +134,14 @@ const YuteAcademy = () => {
                       <span>Best: {userXp.longest_streak_days} days</span>
                     </div>
                   </div>
+                  <Button 
+                    variant="outline" 
+                    className="w-full"
+                    onClick={() => navigate("/badges")}
+                  >
+                    <Trophy className="w-4 h-4 mr-2" />
+                    View Badges
+                  </Button>
                 </div>
               </Card>
             )}
