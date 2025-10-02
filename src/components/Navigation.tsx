@@ -14,30 +14,33 @@ export const Navigation = () => {
             <img 
               src="/yuteblack.svg" 
               alt="YUTE Logo" 
-              style={{ width: '125px', height: 'auto' }}
+              style={{ width: '110px', height: 'auto' }}
             />
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            <a href="#features" className="text-foreground hover:text-primary transition-colors font-medium">
-              Features
+            <a href="#stokvel" className="text-foreground hover:text-primary transition-colors font-medium">
+              🏦 Stokie Circles
             </a>
             <a href="#ai" className="text-foreground hover:text-primary transition-colors font-medium">
-              AI Coach
+              ✨ AI Assistant
             </a>
-            <a href="#community" className="text-foreground hover:text-primary transition-colors font-medium">
-              Community
+            <a href="#education" className="text-foreground hover:text-primary transition-colors font-medium">
+              📚 Course Library
             </a>
-            <a href="#resources" className="text-foreground hover:text-primary transition-colors font-medium">
-              Resources
+            <a href="#credit" className="text-foreground hover:text-primary transition-colors font-medium">
+              🗄️ Resource Center
+            </a>
+             <a href="#features" className="text-foreground hover:text-primary transition-colors font-medium">
+              <b>Explore All Features →</b>
             </a>
           </div>
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center gap-4">
-            <Button variant="ghost">Sign In</Button>
-            <Button variant="default">Get Started</Button>
+            <Button variant="ghost">Sign Up/Login</Button>
+            <Button variant="default">Contact Support</Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -52,21 +55,24 @@ export const Navigation = () => {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden py-4 space-y-4 border-t border-border">
-            <a href="#features" className="block text-foreground hover:text-primary transition-colors font-medium">
-              Features
+            <a href="#stokvel" className="block text-foreground hover:text-primary transition-colors font-medium">
+              🏦 Stokie Circles
             </a>
             <a href="#ai" className="block text-foreground hover:text-primary transition-colors font-medium">
-              AI Coach
+              ✨ AI Assistant
             </a>
-            <a href="#community" className="block text-foreground hover:text-primary transition-colors font-medium">
-              Community
+            <a href="#education" className="block text-foreground hover:text-primary transition-colors font-medium">
+              📚 Course Library
             </a>
             <a href="#resources" className="block text-foreground hover:text-primary transition-colors font-medium">
-              Resources
+              🗄️ Resource Center
+            </a>
+            <a href="#features" className="text-foreground hover:text-primary transition-colors font-medium">
+              <b>Explore All Features →</b>
             </a>
             <div className="flex flex-col gap-2 pt-4">
-              <Button variant="ghost" className="w-full">Sign In</Button>
-              <Button variant="default" className="w-full">Get Started</Button>
+              <Button variant="ghost" className="w-full">Sign Up/Login</Button>
+              <Button variant="default" className="w-full">Contact Support</Button>
             </div>
           </div>
         )}
