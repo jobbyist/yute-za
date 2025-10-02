@@ -15,47 +15,19 @@ import {
   Lock,
   Globe
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { Tables } from "@/integrations/supabase/types";
+import { CreateCircleDialog } from "@/components/stokie-circles/CreateCircleDialog";
 
-// Mock data for circles
-const featuredCircles = [
-  {
-    id: 1,
-    name: "December Holiday Fund",
-    goal: "December Payout",
-    targetAmount: 50000,
-    currentAmount: 32500,
-    members: 12,
-    isPrivate: false,
-    monthlyContribution: 500,
-    nextPayout: "2025-12-01",
-  },
-  {
-    id: 2,
-    name: "Startup Capital Group",
-    goal: "Business Investment",
-    targetAmount: 100000,
-    currentAmount: 68000,
-    members: 20,
-    isPrivate: true,
-    monthlyContribution: 1000,
-    nextPayout: "2026-03-01",
-  },
-  {
-    id: 3,
-    name: "Young Professionals Savings",
-    goal: "Emergency Fund",
-    targetAmount: 30000,
-    currentAmount: 18500,
-    members: 8,
-    isPrivate: false,
-    monthlyContribution: 250,
-    nextPayout: "2025-10-01",
-  },
-];
+type Circle = Tables<"stokie_circles"> & {
+  member_count?: number;
+};
 
-const CircleCard = ({ circle }: { circle: typeof featuredCircles[0] }) => {
-  const progress = (circle.currentAmount / circle.targetAmount) * 100;
+const CircleCard = ({ circle }: { circle: Circle }) => {
+  const navigate = useNavigate();
+  const progress = (circle.current_amount / circle.target_amount) * 100;
   
   return (
     <Card className="p-6 hover:shadow-lg transition-shadow">
@@ -65,7 +37,7 @@ const CircleCard = ({ circle }: { circle: typeof featuredCircles[0] }) => {
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">
               <h3 className="text-xl font-semibold">{circle.name}</h3>
-              {circle.isPrivate ? (
+              {circle.is_private ? (
                 <Badge variant="secondary" className="gap-1">
                   <Lock className="w-3 h-3" />
                   Private
@@ -77,7 +49,7 @@ const CircleCard = ({ circle }: { circle: typeof featuredCircles[0] }) => {
                 </Badge>
               )}
             </div>
-            <p className="text-sm text-muted-foreground">{circle.goal}</p>
+            <p className="text-sm text-muted-foreground">{circle.goal_description}</p>
           </div>
         </div>
 
@@ -86,7 +58,7 @@ const CircleCard = ({ circle }: { circle: typeof featuredCircles[0] }) => {
           <div className="flex justify-between text-sm">
             <span className="text-muted-foreground">Progress</span>
             <span className="font-semibold">
-              R{circle.currentAmount.toLocaleString()} / R{circle.targetAmount.toLocaleString()}
+              R{circle.current_amount.toLocaleString()} / R{circle.target_amount.toLocaleString()}
             </span>
           </div>
           <div className="w-full bg-muted rounded-full h-2">
@@ -104,20 +76,24 @@ const CircleCard = ({ circle }: { circle: typeof featuredCircles[0] }) => {
             <Users className="w-4 h-4 text-primary" />
             <div>
               <p className="text-xs text-muted-foreground">Members</p>
-              <p className="text-sm font-semibold">{circle.members}</p>
+              <p className="text-sm font-semibold">{circle.member_count || 0}</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
             <Wallet className="w-4 h-4 text-secondary" />
             <div>
               <p className="text-xs text-muted-foreground">Monthly</p>
-              <p className="text-sm font-semibold">R{circle.monthlyContribution}</p>
+              <p className="text-sm font-semibold">R{circle.monthly_contribution}</p>
             </div>
           </div>
         </div>
 
         {/* Action Button */}
-        <Button className="w-full" variant="outline">
+        <Button 
+          className="w-full" 
+          variant="outline"
+          onClick={() => navigate(`/circles/${circle.id}`)}
+        >
           View Details
         </Button>
       </div>
@@ -126,11 +102,56 @@ const CircleCard = ({ circle }: { circle: typeof featuredCircles[0] }) => {
 };
 
 const StokieCircles = () => {
+  const navigate = useNavigate();
   const [showCreateDialog, setShowCreateDialog] = useState(false);
+  const [circles, setCircles] = useState<Circle[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchCircles();
+  }, []);
+
+  const fetchCircles = async () => {
+    try {
+      // Fetch public circles with member count
+      const { data, error } = await supabase
+        .from("stokie_circles")
+        .select(`
+          *,
+          circle_members(count)
+        `)
+        .eq("status", "active")
+        .order("created_at", { ascending: false })
+        .limit(6);
+
+      if (error) throw error;
+
+      // Transform the data to include member count
+      const transformedData = data?.map(circle => ({
+        ...circle,
+        member_count: circle.circle_members?.[0]?.count || 0,
+      })) || [];
+
+      setCircles(transformedData);
+    } catch (error) {
+      console.error("Error fetching circles:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCircleCreated = () => {
+    fetchCircles();
+  };
 
   return (
     <div className="min-h-screen">
       <Navigation />
+      <CreateCircleDialog
+        open={showCreateDialog}
+        onOpenChange={setShowCreateDialog}
+        onCircleCreated={handleCircleCreated}
+      />
       
       {/* Hero Section */}
       <section className="pt-24 pb-16 px-4 bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10">
@@ -262,11 +283,27 @@ const StokieCircles = () => {
               Join these active circles or create your own
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredCircles.map((circle) => (
-              <CircleCard key={circle.id} circle={circle} />
-            ))}
-          </div>
+          {loading ? (
+            <div className="text-center py-12">
+              <p className="text-muted-foreground">Loading circles...</p>
+            </div>
+          ) : circles.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-muted-foreground mb-4">
+                No circles yet. Be the first to create one!
+              </p>
+              <Button onClick={() => setShowCreateDialog(true)}>
+                <Plus className="w-4 h-4 mr-2" />
+                Create a Circle
+              </Button>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {circles.map((circle) => (
+                <CircleCard key={circle.id} circle={circle} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider, ProtectedRoute } from "@/hooks/useAuth";
 import Index from "./pages/Index";
 import StokieCircles from "./pages/StokieCircles";
+import CircleDetail from "./pages/CircleDetail";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
 import Onboarding from "./pages/Onboarding";
@@ -23,6 +24,14 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/stokie-circles" element={<StokieCircles />} />
+            <Route 
+              path="/circles/:circleId" 
+              element={
+                <ProtectedRoute>
+                  <CircleDetail />
+                </ProtectedRoute>
+              } 
+            />
             <Route path="/auth" element={<Auth />} />
             <Route 
               path="/profile" 
