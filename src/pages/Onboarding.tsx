@@ -350,8 +350,9 @@ const Onboarding = () => {
                   <p className="text-sm text-muted-foreground mb-4">
                     The information provided through YUTE, including AI-generated responses,
                     is for educational purposes only and should not be considered as
-                    professional financial advice. Always consult with a qualified financial
-                    advisor before making investment decisions.
+                    professional financial advice. YUTE does not offer financial advice or 
+                    any services that require legal registration, licensing, or authorization.
+                    Always consult with a qualified financial advisor before making investment decisions.
                   </p>
 
                   <h4 className="font-semibold mb-2">Risk Acknowledgment</h4>

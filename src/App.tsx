@@ -15,6 +15,9 @@ import Leaderboard from "./pages/Leaderboard";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
 import Onboarding from "./pages/Onboarding";
+import Contact from "./pages/Contact";
+import AIAssistant from "./pages/AIAssistant";
+import BotPromo from "./pages/BotPromo";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -52,6 +55,9 @@ const App = () => (
             />
             <Route path="/badges" element={<BadgesPage />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/ai-assistant" element={<AIAssistant />} />
+            <Route path="/bot-promo" element={<BotPromo />} />
             <Route path="/auth" element={<Auth />} />
             <Route 
               path="/profile" 

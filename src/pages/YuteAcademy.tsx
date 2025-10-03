@@ -101,7 +101,7 @@ const YuteAcademy = () => {
         <div className="container mx-auto max-w-7xl">
           <div className="text-center space-y-6 max-w-3xl mx-auto">
             <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-              📚 YUTE Academy
+              VAULT SCHOOL
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground">
               Level Up Your Financial Knowledge
@@ -227,7 +227,7 @@ const YuteAcademy = () => {
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Why YUTE Academy?
+              Why VAULT SCHOOL?
             </h2>
           </div>
           <div className="grid md:grid-cols-3 gap-6">

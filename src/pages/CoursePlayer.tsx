@@ -392,7 +392,7 @@ const CoursePlayer = () => {
             <div className="mt-8">
               <SocialShare
                 title={`I just completed ${course.title}!`}
-                description={`Check out this course on YUTE Academy: ${course.description}`}
+                description={`Check out this course on VAULT SCHOOL: ${course.description}`}
               />
             </div>
           )}

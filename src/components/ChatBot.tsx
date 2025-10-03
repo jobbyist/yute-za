@@ -15,7 +15,7 @@ export const ChatBot = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
-      content: "Sawubona! 👋 I'm Gcini'mali Bot, your financial wellness companion. How can I help you today? Feel free to ask me about saving, budgeting, investing, or any money matters!",
+      content: "Sawubona! 👋 I'm Gcini'mali Bot [V1], your financial wellness companion. How can I help you today? Feel free to ask me about saving, budgeting, investing, or any money matters!",
     },
   ]);
   const [input, setInput] = useState("");
@@ -166,7 +166,7 @@ export const ChatBot = () => {
               </div>
               <div>
                 <h3 className="font-semibold text-primary-foreground">
-                  Gcini'mali Bot
+                  GCINI'MALI BOT [V1]
                 </h3>
                 <p className="text-xs text-primary-foreground/80">
                   Financial Wellness Assistant
@@ -224,6 +224,9 @@ export const ChatBot = () => {
 
           {/* Input */}
           <div className="p-4 border-t border-border bg-background">
+            <div className="mb-3 text-xs text-muted-foreground text-center px-2">
+              ⚠️ Educational purposes only. Not financial advice. Consult a professional advisor for investment decisions.
+            </div>
             <div className="flex gap-2">
               <input
                 type="text"
