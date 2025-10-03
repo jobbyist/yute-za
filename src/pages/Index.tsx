@@ -5,6 +5,7 @@ import { AIDemo } from "@/components/AIDemo";
 import { Community } from "@/components/Community";
 import { CTA } from "@/components/CTA";
 import { ChatBot } from "@/components/ChatBot";
+import { MzansiMoneyManual } from "@/components/MzansiMoneyManual";
 
 const Index = () => {
   return (
@@ -14,6 +15,7 @@ const Index = () => {
         <Hero />
         <Features />
         <AIDemo />
+        <MzansiMoneyManual />
         <Community />
         <CTA />
       </main>

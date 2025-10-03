@@ -12,7 +12,6 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
-import { Input } from "@/components/ui/input";
 import { VotingInterface } from "@/components/VotingInterface";
 import { InviteSystem } from "@/components/InviteSystem";
 import {
@@ -304,33 +303,6 @@ const CircleDetail = () => {
       toast({
         title: "Error",
         description: error instanceof Error ? error.message : "Failed to add contribution",
-        variant: "destructive",
-      });
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  const handleSendMessage = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!user || !circleId || !messageText.trim()) return;
-
-    setSubmitting(true);
-    try {
-      const { error } = await supabase.from("circle_messages").insert({
-        circle_id: circleId,
-        user_id: user.id,
-        message: messageText,
-      });
-
-      if (error) throw error;
-
-      setMessageText("");
-      fetchCircleData();
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: error instanceof Error ? error.message : "Failed to send message",
         variant: "destructive",
       });
     } finally {
