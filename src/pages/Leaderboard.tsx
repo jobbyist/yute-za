@@ -4,6 +4,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { Navigation } from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { SocialShare } from "@/components/SocialShare";
 import {
   Trophy,
   Medal,
@@ -200,6 +201,16 @@ const Leaderboard = () => {
                   </p>
                 </div>
               )}
+            </div>
+          )}
+
+          {/* Social Share */}
+          {user && userRank && (
+            <div className="mt-8">
+              <SocialShare
+                title={`I'm ranked #${userRank.rank} on the YUTE Academy Leaderboard!`}
+                description={`I've earned ${userRank.total_xp} XP and reached Level ${userRank.level}. Join me on YUTE Academy!`}
+              />
             </div>
           )}
         </div>

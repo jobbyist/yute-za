@@ -11,6 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import { VideoPlayer } from "@/components/VideoPlayer";
 import { AudioPlayer } from "@/components/AudioPlayer";
 import { QuizPlayer } from "@/components/QuizPlayer";
+import { SocialShare } from "@/components/SocialShare";
 import {
   ArrowLeft,
   ArrowRight,
@@ -367,6 +368,16 @@ const CoursePlayer = () => {
               </Button>
             )}
           </div>
+
+          {/* Social Share */}
+          {isCompleted && (
+            <div className="mt-8">
+              <SocialShare
+                title={`I just completed ${course.title}!`}
+                description={`Check out this course on YUTE Academy: ${course.description}`}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>
