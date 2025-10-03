@@ -541,6 +541,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      check_and_award_badges: {
+        Args: { p_user_id: string }
+        Returns: undefined
+      }
       get_my_role: {
         Args: Record<PropertyKey, never>
         Returns: Database["public"]["Enums"]["app_role"]

@@ -4,7 +4,10 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { Navigation } from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
@@ -18,6 +21,7 @@ import {
   Lock,
   Globe,
   Calendar,
+  Send,
 } from "lucide-react";
 import { Tables } from "@/integrations/supabase/types";
 
@@ -43,6 +47,11 @@ const CircleDetail = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(true);
   const [isMember, setIsMember] = useState(false);
+  const [contributionAmount, setContributionAmount] = useState("");
+  const [contributionNotes, setContributionNotes] = useState("");
+  const [paymentReference, setPaymentReference] = useState("");
+  const [messageText, setMessageText] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     if (circleId && user) {
@@ -186,6 +195,96 @@ const CircleDetail = () => {
       toast({
         title: "Error",
         description: "Failed to join circle. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleAddContribution = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!user || !circleId) return;
+
+    setSubmitting(true);
+    try {
+      const { error } = await supabase.from("contributions").insert({
+        circle_id: circleId,
+        user_id: user.id,
+        amount: parseFloat(contributionAmount),
+        notes: contributionNotes,
+        payment_reference: paymentReference,
+        payment_status: "pending",
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Contribution Added",
+        description: "Your contribution has been recorded.",
+      });
+
+      setContributionAmount("");
+      setContributionNotes("");
+      setPaymentReference("");
+      fetchCircleData();
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "Failed to add contribution",
+        variant: "destructive",
+      });
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleSendMessage = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!user || !circleId || !messageText.trim()) return;
+
+    setSubmitting(true);
+    try {
+      const { error } = await supabase.from("circle_messages").insert({
+        circle_id: circleId,
+        user_id: user.id,
+        message: messageText,
+      });
+
+      if (error) throw error;
+
+      setMessageText("");
+      fetchCircleData();
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "Failed to send message",
+        variant: "destructive",
+      });
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleMarkAsPaid = async (contributionId: string) => {
+    if (!user) return;
+
+    try {
+      const { error } = await supabase
+        .from("contributions")
+        .update({ payment_status: "completed" })
+        .eq("id", contributionId);
+
+      if (error) throw error;
+
+      toast({
+        title: "Payment Confirmed",
+        description: "Contribution marked as paid.",
+      });
+
+      fetchCircleData();
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "Failed to update payment status",
         variant: "destructive",
       });
     }
@@ -406,44 +505,86 @@ const CircleDetail = () => {
               </TabsContent>
 
               <TabsContent value="contributions" className="space-y-4">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Add Contribution</CardTitle>
+                    <CardDescription>Record your contribution to this circle</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <form onSubmit={handleAddContribution} className="space-y-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="amount">Amount (R)</Label>
+                        <Input
+                          id="amount"
+                          type="number"
+                          step="0.01"
+                          placeholder="Enter amount"
+                          value={contributionAmount}
+                          onChange={(e) => setContributionAmount(e.target.value)}
+                          required
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="reference">Payment Reference</Label>
+                        <Input
+                          id="reference"
+                          placeholder="e.g., EFT reference number"
+                          value={paymentReference}
+                          onChange={(e) => setPaymentReference(e.target.value)}
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="notes">Notes (Optional)</Label>
+                        <Textarea
+                          id="notes"
+                          placeholder="Add any notes about this contribution"
+                          value={contributionNotes}
+                          onChange={(e) => setContributionNotes(e.target.value)}
+                        />
+                      </div>
+                      <Button type="submit" disabled={submitting}>
+                        {submitting ? "Adding..." : "Add Contribution"}
+                      </Button>
+                    </form>
+                  </CardContent>
+                </Card>
+
                 <Card className="p-6">
-                  <h3 className="text-xl font-semibold mb-4">
-                    Contribution Ledger
-                  </h3>
+                  <h3 className="text-xl font-semibold mb-4">Contribution History</h3>
                   <div className="space-y-3">
                     {contributions.length === 0 ? (
-                      <p className="text-center text-muted-foreground py-8">
-                        No contributions yet
-                      </p>
+                      <p className="text-center text-muted-foreground py-8">No contributions yet</p>
                     ) : (
                       contributions.map((contribution) => (
-                        <div
-                          key={contribution.id}
-                          className="flex items-center justify-between p-3 bg-muted/30 rounded-lg"
-                        >
-                          <div>
-                            <p className="font-medium">
-                              {contribution.profiles?.full_name || "Anonymous"}
-                            </p>
-                            <p className="text-sm text-muted-foreground">
-                              {new Date(
-                                contribution.contribution_date
-                              ).toLocaleDateString()}
-                            </p>
-                          </div>
-                          <div className="text-right">
-                            <p className="font-semibold text-lg">
-                              R{contribution.amount.toLocaleString()}
-                            </p>
-                            <Badge
-                              variant={
-                                contribution.payment_status === "completed"
-                                  ? "default"
-                                  : "secondary"
-                              }
-                            >
-                              {contribution.payment_status}
-                            </Badge>
+                        <div key={contribution.id} className="p-3 bg-muted/30 rounded-lg">
+                          <div className="flex justify-between items-start">
+                            <div>
+                              <p className="font-medium">{contribution.profiles?.full_name || "Anonymous"}</p>
+                              <p className="text-sm text-muted-foreground">
+                                {new Date(contribution.contribution_date).toLocaleDateString()}
+                              </p>
+                              {contribution.payment_reference && (
+                                <p className="text-xs text-muted-foreground">Ref: {contribution.payment_reference}</p>
+                              )}
+                              {contribution.notes && (
+                                <p className="text-sm text-muted-foreground mt-1">{contribution.notes}</p>
+                              )}
+                            </div>
+                            <div className="text-right space-y-2">
+                              <p className="font-bold text-lg">R{contribution.amount.toLocaleString()}</p>
+                              <Badge variant={contribution.payment_status === "completed" ? "default" : "secondary"}>
+                                {contribution.payment_status}
+                              </Badge>
+                              {contribution.payment_status === "pending" && circle?.creator_id === user?.id && (
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => handleMarkAsPaid(contribution.id)}
+                                >
+                                  Mark as Paid
+                                </Button>
+                              )}
+                            </div>
                           </div>
                         </div>
                       ))
@@ -453,29 +594,36 @@ const CircleDetail = () => {
               </TabsContent>
 
               <TabsContent value="chat" className="space-y-4">
-                <Card className="p-6">
-                  <h3 className="text-xl font-semibold mb-4">Circle Chat</h3>
-                  <div className="space-y-3 min-h-[400px]">
-                    {messages.length === 0 ? (
-                      <p className="text-center text-muted-foreground py-8">
-                        No messages yet. Start the conversation!
-                      </p>
-                    ) : (
-                      messages.map((message) => (
-                        <div key={message.id} className="p-3 bg-muted/30 rounded-lg">
-                          <div className="flex items-center gap-2 mb-1">
-                            <p className="font-medium text-sm">
-                              {message.profiles?.full_name || "Anonymous"}
-                            </p>
-                            <p className="text-xs text-muted-foreground">
-                              {new Date(message.created_at).toLocaleString()}
-                            </p>
-                          </div>
-                          <p className="text-sm">{message.message}</p>
+                <div className="space-y-4 max-h-[400px] overflow-y-auto">
+                  {messages.length === 0 ? (
+                    <p className="text-center text-muted-foreground py-8">No messages yet. Start the conversation!</p>
+                  ) : (
+                    messages.map((message) => (
+                      <Card key={message.id} className="p-3">
+                        <div className="flex items-center gap-2 mb-1">
+                          <p className="font-medium text-sm">{message.profiles?.full_name || "Anonymous"}</p>
+                          <p className="text-xs text-muted-foreground">{new Date(message.created_at).toLocaleString()}</p>
                         </div>
-                      ))
-                    )}
-                  </div>
+                        <p className="text-sm">{message.message}</p>
+                      </Card>
+                    ))
+                  )}
+                </div>
+
+                <Card>
+                  <CardContent className="pt-6">
+                    <form onSubmit={handleSendMessage} className="flex gap-2">
+                      <Input
+                        placeholder="Type your message..."
+                        value={messageText}
+                        onChange={(e) => setMessageText(e.target.value)}
+                        disabled={submitting}
+                      />
+                      <Button type="submit" size="icon" disabled={submitting || !messageText.trim()}>
+                        <Send className="h-4 w-4" />
+                      </Button>
+                    </form>
+                  </CardContent>
                 </Card>
               </TabsContent>
             </Tabs>
