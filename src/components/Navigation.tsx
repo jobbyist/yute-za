@@ -29,6 +29,9 @@ export const Navigation = () => {
             <Link to="/academy" className="text-foreground hover:text-primary transition-colors font-medium">
               📚 YUTE Academy
             </Link>
+            <Link to="/leaderboard" className="text-foreground hover:text-primary transition-colors font-medium">
+              🏆 Leaderboard
+            </Link>
             <a href="#ai" className="text-foreground hover:text-primary transition-colors font-medium">
               ✨ AI Assistant
             </a>
@@ -65,6 +68,9 @@ export const Navigation = () => {
             </Link>
             <Link to="/academy" className="block text-foreground hover:text-primary transition-colors font-medium">
               📚 YUTE Academy
+            </Link>
+            <Link to="/leaderboard" className="block text-foreground hover:text-primary transition-colors font-medium">
+              🏆 Leaderboard
             </Link>
             <a href="#ai" className="block text-foreground hover:text-primary transition-colors font-medium">
               ✨ AI Assistant

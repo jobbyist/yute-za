@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
@@ -12,6 +12,9 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
+import { Input } from "@/components/ui/input";
+import { VotingInterface } from "@/components/VotingInterface";
+import { InviteSystem } from "@/components/InviteSystem";
 import {
   Users,
   Wallet,
@@ -83,6 +86,7 @@ const CircleDetail = () => {
         .single();
 
       setIsMember(!!memberCheck);
+      setIsAdmin(memberCheck?.role === 'creator' || memberCheck?.role === 'admin');
 
       if (memberCheck) {
         // Fetch members
@@ -169,6 +173,76 @@ const CircleDetail = () => {
       });
     } finally {
       setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!circleId || !isMember) return;
+
+    // Subscribe to real-time message updates
+    const channel = supabase
+      .channel(`circle_messages:${circleId}`)
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'circle_messages',
+          filter: `circle_id=eq.${circleId}`
+        },
+        async (payload) => {
+          // Fetch the full message with profile data
+          const { data } = await supabase
+            .from('circle_messages')
+            .select('*, profiles(full_name)')
+            .eq('id', payload.new.id)
+            .single();
+          
+          if (data) {
+            setMessages((prev) => [...prev, data as Message]);
+          }
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [circleId, isMember]);
+
+  useEffect(() => {
+    // Scroll to bottom when messages change
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  const handleSendMessage = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newMessage.trim() || !user || !circleId || sendingMessage) return;
+
+    setSendingMessage(true);
+    try {
+      const { error } = await supabase.from("circle_messages").insert({
+        circle_id: circleId,
+        user_id: user.id,
+        message: newMessage.trim(),
+      });
+
+      if (error) throw error;
+
+      setNewMessage("");
+      toast({
+        title: "Message sent",
+        description: "Your message has been sent to the circle.",
+      });
+    } catch (error) {
+      console.error("Error sending message:", error);
+      toast({
+        title: "Error",
+        description: "Failed to send message.",
+        variant: "destructive",
+      });
+    } finally {
+      setSendingMessage(false);
     }
   };
 
@@ -476,6 +550,16 @@ const CircleDetail = () => {
                   <MessageCircle className="w-4 h-4 mr-2" />
                   Chat
                 </TabsTrigger>
+                <TabsTrigger value="voting">
+                  <Vote className="w-4 h-4 mr-2" />
+                  Voting
+                </TabsTrigger>
+                {isAdmin && (
+                  <TabsTrigger value="invites">
+                    <UserPlus className="w-4 h-4 mr-2" />
+                    Invites
+                  </TabsTrigger>
+                )}
               </TabsList>
 
               <TabsContent value="members" className="space-y-4">
@@ -626,6 +710,20 @@ const CircleDetail = () => {
                   </CardContent>
                 </Card>
               </TabsContent>
+
+              <TabsContent value="voting" className="space-y-4">
+                <VotingInterface circleId={circleId} />
+              </TabsContent>
+
+              {isAdmin && (
+                <TabsContent value="invites" className="space-y-4">
+                  <InviteSystem 
+                    circleId={circleId} 
+                    circleName={circle.name}
+                    isAdmin={isAdmin}
+                  />
+                </TabsContent>
+              )}
             </Tabs>
           )}
         </div>

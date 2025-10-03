@@ -8,6 +8,10 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
+import { VideoPlayer } from "@/components/VideoPlayer";
+import { AudioPlayer } from "@/components/AudioPlayer";
+import { QuizPlayer } from "@/components/QuizPlayer";
+import { SocialShare } from "@/components/SocialShare";
 import {
   ArrowLeft,
   ArrowRight,
@@ -89,6 +93,22 @@ const CoursePlayer = () => {
       });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const updateProgress = async (progressPercentage: number) => {
+    if (!user || !courseId || !progress) return;
+
+    try {
+      await supabase
+        .from("user_course_progress")
+        .update({
+          progress_percentage: progressPercentage,
+          last_accessed_at: new Date().toISOString(),
+        })
+        .eq("id", progress.id);
+    } catch (error) {
+      console.error("Error updating progress:", error);
     }
   };
 
@@ -255,78 +275,79 @@ const CoursePlayer = () => {
           )}
 
           {/* Course Content */}
-          <Card className="p-8 mb-8">
-            <div className="space-y-6">
-              {course.content_type === "video" && (
-                <div className="aspect-video bg-muted rounded-lg flex items-center justify-center">
-                  <div className="text-center">
-                    <p className="text-lg font-semibold mb-2">🎥 Video Player</p>
-                    <p className="text-sm text-muted-foreground">
-                      Video content would be displayed here
-                    </p>
-                    {course.content_url && (
-                      <p className="text-xs text-muted-foreground mt-2">
-                        URL: {course.content_url}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              )}
+          <div className="mb-8">
+            {course.content_type === "video" && (
+              <VideoPlayer
+                url={course.content_url || undefined}
+                title={course.title}
+                onProgress={(progress) => {
+                  // Update progress in real-time
+                  if (progress > (progress?.progress_percentage || 0)) {
+                    updateProgress(Math.floor(progress));
+                  }
+                }}
+                onComplete={() => {
+                  if (!isCompleted) {
+                    handleCompleteCourse();
+                  }
+                }}
+              />
+            )}
 
-              {course.content_type === "audio" && (
-                <div className="p-8 bg-muted rounded-lg">
-                  <div className="text-center">
-                    <p className="text-lg font-semibold mb-2">🎧 Audio Player</p>
-                    <p className="text-sm text-muted-foreground">
-                      Audio content would be displayed here
-                    </p>
-                    {course.content_url && (
-                      <p className="text-xs text-muted-foreground mt-2">
-                        URL: {course.content_url}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              )}
+            {course.content_type === "audio" && (
+              <AudioPlayer
+                url={course.content_url || undefined}
+                title={course.title}
+                onProgress={(progress) => {
+                  if (progress > (progress?.progress_percentage || 0)) {
+                    updateProgress(Math.floor(progress));
+                  }
+                }}
+                onComplete={() => {
+                  if (!isCompleted) {
+                    handleCompleteCourse();
+                  }
+                }}
+              />
+            )}
 
-              {course.content_type === "text" && (
+            {course.content_type === "text" && (
+              <Card className="p-8">
                 <div className="prose max-w-none">
-                  <div className="p-8 bg-muted/30 rounded-lg">
-                    <p className="text-lg font-semibold mb-4">📖 Course Content</p>
-                    <p className="text-muted-foreground">
-                      Text content would be displayed here. This would include
-                      formatted text, images, and interactive elements to help
-                      you learn effectively.
-                    </p>
-                  </div>
+                  <p className="text-lg font-semibold mb-4">📖 Course Content</p>
+                  <p className="text-muted-foreground">
+                    Text content would be displayed here. This would include
+                    formatted text, images, and interactive elements to help
+                    you learn effectively.
+                  </p>
                 </div>
-              )}
+              </Card>
+            )}
 
-              {course.content_type === "quiz" && (
-                <div className="p-8 bg-muted/30 rounded-lg">
-                  <div className="text-center">
-                    <p className="text-lg font-semibold mb-2">📝 Quiz</p>
-                    <p className="text-sm text-muted-foreground">
-                      Interactive quiz would be displayed here
-                    </p>
-                  </div>
-                </div>
-              )}
+            {course.content_type === "quiz" && (
+              <QuizPlayer
+                title={course.title}
+                onComplete={(score) => {
+                  if (score >= 70 && !isCompleted) {
+                    handleCompleteCourse();
+                  }
+                }}
+              />
+            )}
 
-              {course.content_type === "interactive" && (
-                <div className="p-8 bg-muted/30 rounded-lg">
-                  <div className="text-center">
-                    <p className="text-lg font-semibold mb-2">
-                      🎮 Interactive Exercise
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      Interactive content would be displayed here
-                    </p>
-                  </div>
+            {course.content_type === "interactive" && (
+              <Card className="p-8">
+                <div className="text-center">
+                  <p className="text-lg font-semibold mb-2">
+                    🎮 Interactive Exercise
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    Interactive content would be displayed here
+                  </p>
                 </div>
-              )}
-            </div>
-          </Card>
+              </Card>
+            )}
+          </div>
 
           {/* Actions */}
           <div className="flex justify-between items-center">
@@ -365,6 +386,16 @@ const CoursePlayer = () => {
               </Button>
             )}
           </div>
+
+          {/* Social Share */}
+          {isCompleted && (
+            <div className="mt-8">
+              <SocialShare
+                title={`I just completed ${course.title}!`}
+                description={`Check out this course on YUTE Academy: ${course.description}`}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>
