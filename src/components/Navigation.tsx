@@ -42,7 +42,9 @@ export const Navigation = () => {
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center gap-4">
-            <Button variant="ghost">Sign Up/Login</Button>
+            <Link to="/auth">
+              <Button variant="ghost">Sign Up/Login</Button>
+            </Link>
             <Button variant="default">Contact Support</Button>
           </div>
 
@@ -74,7 +76,9 @@ export const Navigation = () => {
               <b>Explore All Features →</b>
             </a>
             <div className="flex flex-col gap-2 pt-4">
-              <Button variant="ghost" className="w-full">Sign Up/Login</Button>
+              <Link to="/auth" className="w-full">
+                <Button variant="ghost" className="w-full">Sign Up/Login</Button>
+              </Link>
               <Button variant="default" className="w-full">Contact Support</Button>
             </div>
           </div>

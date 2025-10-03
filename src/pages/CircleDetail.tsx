@@ -79,29 +79,77 @@ const CircleDetail = () => {
         // Fetch members
         const { data: membersData } = await supabase
           .from("circle_members")
-          .select("*, profiles(full_name, email)")
+          .select("*")
           .eq("circle_id", circleId)
           .eq("is_active", true);
 
-        setMembers(membersData || []);
+        // Fetch profiles for members
+        if (membersData && membersData.length > 0) {
+          const userIds = membersData.map(m => m.user_id);
+          const { data: profilesData } = await supabase
+            .from("profiles")
+            .select("id, full_name, email")
+            .in("id", userIds);
+          
+          const profilesMap = new Map(profilesData?.map(p => [p.id, p]) || []);
+          const membersWithProfiles = membersData.map(m => ({
+            ...m,
+            profiles: profilesMap.get(m.user_id)
+          }));
+          setMembers(membersWithProfiles as any);
+        } else {
+          setMembers([]);
+        }
 
         // Fetch contributions
         const { data: contributionsData } = await supabase
           .from("contributions")
-          .select("*, profiles(full_name)")
+          .select("*")
           .eq("circle_id", circleId)
           .order("contribution_date", { ascending: false });
 
-        setContributions(contributionsData || []);
+        // Fetch profiles for contributions
+        if (contributionsData && contributionsData.length > 0) {
+          const userIds = [...new Set(contributionsData.map(c => c.user_id))];
+          const { data: profilesData } = await supabase
+            .from("profiles")
+            .select("id, full_name")
+            .in("id", userIds);
+          
+          const profilesMap = new Map(profilesData?.map(p => [p.id, p]) || []);
+          const contributionsWithProfiles = contributionsData.map(c => ({
+            ...c,
+            profiles: profilesMap.get(c.user_id)
+          }));
+          setContributions(contributionsWithProfiles as any);
+        } else {
+          setContributions([]);
+        }
 
         // Fetch messages
         const { data: messagesData } = await supabase
           .from("circle_messages")
-          .select("*, profiles(full_name)")
+          .select("*")
           .eq("circle_id", circleId)
           .order("created_at", { ascending: true });
 
-        setMessages(messagesData || []);
+        // Fetch profiles for messages
+        if (messagesData && messagesData.length > 0) {
+          const userIds = [...new Set(messagesData.map(m => m.user_id))];
+          const { data: profilesData } = await supabase
+            .from("profiles")
+            .select("id, full_name")
+            .in("id", userIds);
+          
+          const profilesMap = new Map(profilesData?.map(p => [p.id, p]) || []);
+          const messagesWithProfiles = messagesData.map(m => ({
+            ...m,
+            profiles: profilesMap.get(m.user_id)
+          }));
+          setMessages(messagesWithProfiles as any);
+        } else {
+          setMessages([]);
+        }
       }
     } catch (error) {
       console.error("Error fetching circle data:", error);
