@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Menu } from "lucide-react";
+import { Menu, CircleDollarSign, GraduationCap, Trophy, Sparkles, Mail } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -22,22 +22,23 @@ export const Navigation = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            <Link to="/stokie-circles" className="text-foreground hover:text-primary transition-colors font-medium">
-              🏦 Stokie Circles
+          <div className="hidden md:flex items-center gap-6">
+            <Link to="/stokie-circles" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium">
+              <CircleDollarSign className="w-4 h-4" />
+              <span>Stokie Circles</span>
             </Link>
-            <Link to="/academy" className="text-foreground hover:text-primary transition-colors font-medium">
-              📚 YUTE Academy
+            <Link to="/academy" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium">
+              <GraduationCap className="w-4 h-4" />
+              <span>VAULT SCHOOL</span>
             </Link>
-            <Link to="/leaderboard" className="text-foreground hover:text-primary transition-colors font-medium">
-              🏆 Leaderboard
+            <Link to="/leaderboard" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium">
+              <Trophy className="w-4 h-4" />
+              <span>Leaderboard</span>
             </Link>
-            <a href="#ai" className="text-foreground hover:text-primary transition-colors font-medium">
-              ✨ AI Assistant
-            </a>
-            <a href="#credit" className="text-foreground hover:text-primary transition-colors font-medium">
-              🗄️ Resource Center
-            </a>
+            <Link to="/ai-assistant" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium">
+              <Sparkles className="w-4 h-4" />
+              <span>AI Assistant</span>
+            </Link>
              <a href="#features" className="text-foreground hover:text-primary transition-colors font-medium">
               <b>Explore All Features →</b>
             </a>
@@ -48,7 +49,9 @@ export const Navigation = () => {
             <Link to="/auth">
               <Button variant="ghost">Sign Up/Login</Button>
             </Link>
-            <Button variant="default">Contact Support</Button>
+            <Link to="/contact">
+              <Button variant="default">Contact Support</Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -63,21 +66,22 @@ export const Navigation = () => {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden py-4 space-y-4 border-t border-border">
-            <Link to="/stokie-circles" className="block text-foreground hover:text-primary transition-colors font-medium">
-              🏦 Stokie Circles
+            <Link to="/stokie-circles" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium">
+              <CircleDollarSign className="w-4 h-4" />
+              <span>Stokie Circles</span>
             </Link>
-            <Link to="/academy" className="block text-foreground hover:text-primary transition-colors font-medium">
-              📚 YUTE Academy
+            <Link to="/academy" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium">
+              <GraduationCap className="w-4 h-4" />
+              <span>VAULT SCHOOL</span>
             </Link>
-            <Link to="/leaderboard" className="block text-foreground hover:text-primary transition-colors font-medium">
-              🏆 Leaderboard
+            <Link to="/leaderboard" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium">
+              <Trophy className="w-4 h-4" />
+              <span>Leaderboard</span>
             </Link>
-            <a href="#ai" className="block text-foreground hover:text-primary transition-colors font-medium">
-              ✨ AI Assistant
-            </a>
-            <a href="#resources" className="block text-foreground hover:text-primary transition-colors font-medium">
-              🗄️ Resource Center
-            </a>
+            <Link to="/ai-assistant" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium">
+              <Sparkles className="w-4 h-4" />
+              <span>AI Assistant</span>
+            </Link>
             <a href="#features" className="text-foreground hover:text-primary transition-colors font-medium">
               <b>Explore All Features →</b>
             </a>
@@ -85,7 +89,9 @@ export const Navigation = () => {
               <Link to="/auth" className="w-full">
                 <Button variant="ghost" className="w-full">Sign Up/Login</Button>
               </Link>
-              <Button variant="default" className="w-full">Contact Support</Button>
+              <Link to="/contact" className="w-full">
+                <Button variant="default" className="w-full">Contact Support</Button>
+              </Link>
             </div>
           </div>
         )}
