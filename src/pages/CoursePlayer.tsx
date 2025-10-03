@@ -140,14 +140,14 @@ const CoursePlayer = () => {
         const newXp = xpData.total_xp + course.xp_reward;
         const newLevel = Math.floor(newXp / 100) + 1;
 
-        await supabase
-          .from("user_xp")
-          .update({
-            total_xp: newXp,
-            level: newLevel,
-            last_activity_date: new Date().toISOString().split("T")[0],
-          })
-          .eq("user_id", user.id);
+      await supabase
+        .from("user_xp")
+        .update({
+          total_xp: newXp,
+          level: newLevel,
+          last_activity_date: new Date().toISOString().split("T")[0],
+        })
+        .eq("user_id", user.id);
       } else {
         await supabase.from("user_xp").insert({
           user_id: user.id,
@@ -157,12 +157,30 @@ const CoursePlayer = () => {
         });
       }
 
+      // Check and award badges
+      await supabase.rpc("check_and_award_badges", { p_user_id: user.id });
+
+      // Check if any new badges were awarded
+      const { data: newBadges } = await supabase
+        .from("user_badges")
+        .select("*, badges(*)")
+        .eq("user_id", user.id)
+        .gte("earned_at", new Date(Date.now() - 5000).toISOString());
+
       toast({
         title: "Course Completed! 🎉",
         description: `You earned ${course.xp_reward} XP!`,
       });
 
-      // Navigate back to learning path
+      if (newBadges && newBadges.length > 0) {
+        newBadges.forEach((badge: any) => {
+          toast({
+            title: "Badge Earned! 🏆",
+            description: `You earned the "${badge.badges.name}" badge!`,
+          });
+        });
+      }
+
       navigate(`/academy/path/${course.learning_path_id}`);
     } catch (error) {
       console.error("Error completing course:", error);
