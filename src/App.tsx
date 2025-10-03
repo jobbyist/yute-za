@@ -11,6 +11,7 @@ import YuteAcademy from "./pages/YuteAcademy";
 import LearningPathDetail from "./pages/LearningPathDetail";
 import CoursePlayer from "./pages/CoursePlayer";
 import BadgesPage from "./pages/BadgesPage";
+import Leaderboard from "./pages/Leaderboard";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
 import Onboarding from "./pages/Onboarding";
@@ -50,6 +51,7 @@ const App = () => (
               } 
             />
             <Route path="/badges" element={<BadgesPage />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="/auth" element={<Auth />} />
             <Route 
               path="/profile" 
