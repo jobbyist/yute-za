@@ -18,6 +18,10 @@ import Onboarding from "./pages/Onboarding";
 import Contact from "./pages/Contact";
 import AIAssistant from "./pages/AIAssistant";
 import BotPromo from "./pages/BotPromo";
+import Terms from "./pages/Terms";
+import Privacy from "./pages/Privacy";
+import Refunds from "./pages/Refunds";
+import Cookies from "./pages/Cookies";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -58,6 +62,10 @@ const App = () => (
             <Route path="/contact" element={<Contact />} />
             <Route path="/ai-assistant" element={<AIAssistant />} />
             <Route path="/bot-promo" element={<BotPromo />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/refunds" element={<Refunds />} />
+            <Route path="/cookies" element={<Cookies />} />
             <Route path="/auth" element={<Auth />} />
             <Route 
               path="/profile" 
