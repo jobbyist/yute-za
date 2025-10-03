@@ -311,33 +311,6 @@ const CircleDetail = () => {
     }
   };
 
-  const handleSendMessage = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!user || !circleId || !messageText.trim()) return;
-
-    setSubmitting(true);
-    try {
-      const { error } = await supabase.from("circle_messages").insert({
-        circle_id: circleId,
-        user_id: user.id,
-        message: messageText,
-      });
-
-      if (error) throw error;
-
-      setMessageText("");
-      fetchCircleData();
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: error instanceof Error ? error.message : "Failed to send message",
-        variant: "destructive",
-      });
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
   const handleMarkAsPaid = async (contributionId: string) => {
     if (!user) return;
 
