@@ -173,10 +173,10 @@ const CoursePlayer = () => {
       });
 
       if (newBadges && newBadges.length > 0) {
-        newBadges.forEach((badge: any) => {
+        newBadges.forEach((badge: { badges?: { name?: string | null } }) => {
           toast({
             title: "Badge Earned! 🏆",
-            description: `You earned the "${badge.badges.name}" badge!`,
+            description: `You earned the "${badge.badges?.name || "New Achievement"}" badge!`,
           });
         });
       }
