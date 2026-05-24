@@ -163,8 +163,8 @@ export const MzansiMoneyManual = () => {
             THE MZANSI MONEY MANUAL
           </h2>
           <p className="text-lg text-muted-foreground">
-            New episodes will be published every Monday and Wednesday plus a bonus
-            episode every second Friday.
+            Fresh episodes drop every Monday and Wednesday, plus a bonus episode
+            every second Friday.
           </p>
         </div>
 
@@ -189,10 +189,9 @@ export const MzansiMoneyManual = () => {
 
                 <div className="border-t pt-4 space-y-4">
                   <p className="text-xs text-muted-foreground">
-                    Download an extended version of each episode as an e-book for just
-                    R{episode.ebook_price.toFixed(2)} (please note that e-books are
-                    available upon request for all active Elite subscribers free of
-                    charge).
+                    Want the deep dive? Grab the extended e-book for
+                    R{episode.ebook_price.toFixed(2)}. Active Elite members can
+                    request e-books at no extra cost.
                   </p>
 
                   <div className="flex items-center justify-between">

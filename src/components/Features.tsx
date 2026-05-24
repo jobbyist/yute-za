@@ -4,51 +4,51 @@ const features = [
   {
     icon: Bot,
     title: "AI Financial Assistant",
-    description: "Get personalized financial advice powered by advanced AI, available 24/7 to guide your financial journey",
+    description: "Ask your money questions anytime and get practical guidance in plain language that actually makes sense.",
     gradient: "from-primary to-primary/50",
   },
   {
     icon: BookOpen,
     title: "Interactive Learning",
-    description: "Access comprehensive courses on budgeting, investing, and financial planning designed for young South Africans",
+    description: "Master budgeting, debt, and investing with short lessons built for real life in South Africa.",
     gradient: "from-secondary to-secondary/50",
   },
   {
     icon: Users,
     title: "Peer-to-Peer Network",
-    description: "Connect with other young professionals, share experiences, and learn from community success stories",
+    description: "Swap wins, lessons, and motivation with a community that gets your hustle and your goals.",
     gradient: "from-accent to-accent/50",
   },
   {
     icon: Wallet,
     title: "Budget Tools",
-    description: "Smart budgeting tools that help you track spending, set goals, and build healthy financial habits",
+    description: "Track spending, set smart goals, and stay accountable so payday doesn’t disappear by week two.",
     gradient: "from-primary to-secondary",
   },
   {
     icon: TrendingUp,
     title: "Investment Guidance",
-    description: "Learn about investment opportunities accessible to South African youth with step-by-step guidance",
+    description: "Learn where to start with investing in SA, from low-entry options to long-term wealth moves.",
     gradient: "from-secondary to-accent",
   },
   {
     icon: Award,
     title: "Achieve Milestones",
-    description: "Earn badges and rewards as you complete learning modules and reach your financial goals",
+    description: "Earn XP, badges, and momentum as you complete lessons and stack consistent money habits.",
     gradient: "from-accent to-primary",
   },
 ];
 
 export const Features = () => {
   return (
-    <section className="py-24 px-4 bg-muted/30">
+    <section id="features" className="py-24 px-4 bg-muted/30">
       <div className="container mx-auto max-w-7xl">
         <div className="text-center mb-16 space-y-4">
           <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-            Everything You Need to Thrive
+            Everything you need to thrive
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Comprehensive tools and resources designed specifically for South Africa's next generation
+            A conversion-focused toolkit designed for ambitious young South Africans.
           </p>
         </div>
 

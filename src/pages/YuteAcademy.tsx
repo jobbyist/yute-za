@@ -104,11 +104,11 @@ const YuteAcademy = () => {
               VAULT SCHOOL
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground">
-              Level Up Your Financial Knowledge
+              Level up your financial knowledge
             </p>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Learn at your own pace with bite-sized courses, earn XP, unlock
-              badges, and build real financial skills.
+              Learn in bite-sized bursts, earn XP, unlock badges, and build
+              practical money skills for everyday life in Mzansi.
             </p>
 
             {user && userXp && (
@@ -157,7 +157,7 @@ const YuteAcademy = () => {
               Learning Paths
             </h2>
             <p className="text-lg text-muted-foreground">
-              Choose your journey and start learning today
+              Pick your learning path and get going today.
             </p>
           </div>
 
@@ -238,8 +238,8 @@ const YuteAcademy = () => {
                 </div>
                 <h3 className="text-xl font-semibold">Bite-Sized Learning</h3>
                 <p className="text-muted-foreground">
-                  Short, focused courses designed for busy South Africans.
-                  Learn in 10-15 minute sessions.
+                  Short, focused courses for busy schedules. Learn in 10-15
+                  minute sessions and keep your streak alive.
                 </p>
               </div>
             </Card>
@@ -251,8 +251,8 @@ const YuteAcademy = () => {
                 </div>
                 <h3 className="text-xl font-semibold">Gamified Experience</h3>
                 <p className="text-muted-foreground">
-                  Earn XP, unlock badges, and compete on leaderboards while
-                  building real skills.
+                  Earn XP, unlock badges, and climb leaderboards while building
+                  real-world financial confidence.
                 </p>
               </div>
             </Card>
@@ -264,8 +264,8 @@ const YuteAcademy = () => {
                 </div>
                 <h3 className="text-xl font-semibold">SA-Focused Content</h3>
                 <p className="text-muted-foreground">
-                  All content tailored for the South African market, economy,
-                  and financial landscape.
+                  Every module is tailored to South African costs, systems, and
+                  opportunities — no imported fluff.
                 </p>
               </div>
             </Card>
@@ -281,7 +281,7 @@ const YuteAcademy = () => {
               Ready to Start Learning?
             </h2>
             <p className="text-xl text-muted-foreground">
-              Join thousands of South Africans building their financial future
+              Join thousands of South Africans building a stronger financial future.
             </p>
             {!user && (
               <Button

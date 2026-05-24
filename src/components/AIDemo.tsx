@@ -4,15 +4,15 @@ import { Bot, Send } from "lucide-react";
 import { useState } from "react";
 
 const sampleQuestions = [
-  "How do I start saving money?",
-  "What's a good budget for a student?",
-  "How can I invest R500?",
+  "How do I stop finishing my salary too early?",
+  "What’s a realistic student budget in SA?",
+  "How can I start investing with just R500?",
 ];
 
 const sampleResponses = [
-  "Great question! Starting to save is easier than you think. Here are 3 simple steps: 1) Set aside 10% of any income, 2) Open a savings account, 3) Automate your savings. Let me help you create a personalized savings plan...",
-  "For students in South Africa, I recommend the 50/30/20 rule: 50% for necessities, 30% for wants, and 20% for savings. Based on typical student expenses, let's build a budget together...",
-  "R500 is a great start! You have several options: 1) Start with a Tax-Free Savings Account, 2) Consider unit trusts with low minimums, 3) Explore educational investment apps. Would you like to explore these options in detail?",
+  "You’re not alone, hey. Start with a payday split: needs first, savings second, nice-to-haves last. Even parking 10% automatically before spending can change the game.",
+  "A strong student budget keeps essentials covered, puts a little into savings, and still leaves room for social life. Let’s build one that fits your real costs.",
+  "R500 is a legit start. You can begin with a tax-free savings account, low-minimum funds, or consistent monthly top-ups. Small moves now become big wins later.",
 ];
 
 export const AIDemo = () => {
@@ -23,10 +23,10 @@ export const AIDemo = () => {
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12 space-y-4">
           <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            Meet Your AI Financial Coach
+            Meet your AI financial coach
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Ask anything about money, budgeting, saving, or investing—get instant, personalized advice
+            Ask anything about budgeting, saving, debt, or investing and get fast, practical support.
           </p>
         </div>
 
@@ -90,7 +90,7 @@ export const AIDemo = () => {
             ))}
             <div className="pt-4">
               <Button variant="hero" size="lg" className="w-full">
-                Start Chatting with AI
+                Chat with Gcini'mali
               </Button>
             </div>
           </div>

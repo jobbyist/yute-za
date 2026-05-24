@@ -1,26 +1,53 @@
 import { Navigation } from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 const Cookies = () => {
+  const { toast } = useToast();
   const [cookiePreferences, setCookiePreferences] = useState({
     necessary: true,
     analytics: false,
     marketing: false,
   });
 
+  useEffect(() => {
+    const saved = localStorage.getItem("yute-cookie-preferences");
+    if (!saved) return;
+
+    try {
+      const parsed = JSON.parse(saved);
+      setCookiePreferences({
+        necessary: true,
+        analytics: Boolean(parsed.analytics),
+        marketing: Boolean(parsed.marketing),
+      });
+    } catch {
+      // Ignore invalid stored preferences and continue with defaults
+    }
+  }, []);
+
   const handleAcceptAll = () => {
-    setCookiePreferences({
+    const nextPreferences = {
       necessary: true,
       analytics: true,
       marketing: true,
+    };
+    setCookiePreferences(nextPreferences);
+    localStorage.setItem("yute-cookie-preferences", JSON.stringify(nextPreferences));
+    toast({
+      title: "Preferences updated",
+      description: "All cookie categories are now enabled.",
     });
   };
 
   const handleSavePreferences = () => {
-    // In a real implementation, this would save preferences to localStorage or cookies
-    console.log("Saved cookie preferences:", cookiePreferences);
+    localStorage.setItem("yute-cookie-preferences", JSON.stringify(cookiePreferences));
+    toast({
+      title: "Preferences saved",
+      description: "Your cookie settings have been updated.",
+    });
   };
 
   return (

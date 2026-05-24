@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Menu, CircleDollarSign, GraduationCap, Trophy, Sparkles, Mail } from "lucide-react";
+import { Menu, CircleDollarSign, GraduationCap, Trophy, Sparkles } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -40,14 +40,14 @@ export const Navigation = () => {
               <span>AI Assistant</span>
             </Link>
              <a href="#features" className="text-foreground hover:text-primary transition-colors font-medium">
-              <b>Explore All Features →</b>
+              <b>Explore features →</b>
             </a>
           </div>
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center gap-4">
             <Link to="/auth">
-              <Button variant="ghost">Sign Up/Login</Button>
+              <Button variant="ghost">Sign in / Join</Button>
             </Link>
             <Link to="/contact">
               <Button variant="default">Contact Support</Button>
@@ -83,11 +83,11 @@ export const Navigation = () => {
               <span>AI Assistant</span>
             </Link>
             <a href="#features" className="text-foreground hover:text-primary transition-colors font-medium">
-              <b>Explore All Features →</b>
+              <b>Explore features →</b>
             </a>
             <div className="flex flex-col gap-2 pt-4">
               <Link to="/auth" className="w-full">
-                <Button variant="ghost" className="w-full">Sign Up/Login</Button>
+                <Button variant="ghost" className="w-full">Sign in / Join</Button>
               </Link>
               <Link to="/contact" className="w-full">
                 <Button variant="default" className="w-full">Contact Support</Button>

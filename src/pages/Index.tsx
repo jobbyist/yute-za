@@ -6,6 +6,7 @@ import { Community } from "@/components/Community";
 import { CTA } from "@/components/CTA";
 import { ChatBot } from "@/components/ChatBot";
 import { MzansiMoneyManual } from "@/components/MzansiMoneyManual";
+import { MvpReadinessChecklist } from "@/components/MvpReadinessChecklist";
 import { Link } from "react-router-dom";
 
 const Index = () => {
@@ -18,6 +19,7 @@ const Index = () => {
         <AIDemo />
         <MzansiMoneyManual />
         <Community />
+        <MvpReadinessChecklist />
         <CTA />
       </main>
       <ChatBot />

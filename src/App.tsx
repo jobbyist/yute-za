@@ -23,6 +23,7 @@ import Privacy from "./pages/Privacy";
 import Refunds from "./pages/Refunds";
 import Cookies from "./pages/Cookies";
 import NotFound from "./pages/NotFound";
+import { RouteSeo } from "./components/RouteSeo";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <AuthProvider>
+          <RouteSeo />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/stokie-circles" element={<StokieCircles />} />

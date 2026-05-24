@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Users, MessageCircle, Trophy, Heart } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const communityStats = [
   { icon: Users, value: "10,000+", label: "Active Members" },
@@ -13,19 +14,19 @@ const testimonials = [
   {
     name: "Thabo M.",
     location: "Johannesburg",
-    message: "YUTE helped me save for my first car! The AI coach kept me accountable and the community inspired me daily.",
+    message: "YUTE helped me save for my first car. The check-ins kept me honest and the community kept me going.",
     achievement: "Saved R50,000 in 8 months",
   },
   {
     name: "Lerato K.",
     location: "Cape Town",
-    message: "I learned about investing through YUTE's courses. Now I have a diversified portfolio and I'm helping my friends too!",
+    message: "The lessons made investing less scary. Now I’m building a portfolio and sharing the plug with my friends.",
     achievement: "Started investing with R1,000",
   },
   {
     name: "Sipho N.",
     location: "Durban",
-    message: "The peer network is amazing. Real people sharing real experiences. I've made friends and learned so much!",
+    message: "Real people, real stories, no judgement. I learned loads and finally got a plan that works for me.",
     achievement: "Paid off R20k debt",
   },
 ];
@@ -36,10 +37,10 @@ export const Community = () => {
       <div className="container mx-auto max-w-7xl">
         <div className="text-center mb-16 space-y-4">
           <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-            Join a Thriving Community
+            Join a thriving community
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Connect with thousands of young South Africans on their financial journey
+            Connect with young South Africans building wealth one smart move at a time.
           </p>
         </div>
 
@@ -100,9 +101,11 @@ export const Community = () => {
 
         {/* CTA */}
         <div className="text-center">
-          <Button variant="hero" size="lg" className="min-w-[250px]">
-            Join the Community
-          </Button>
+          <Link to="/stokie-circles">
+            <Button variant="hero" size="lg" className="min-w-[250px]">
+              Join the community
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
