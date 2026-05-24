@@ -173,10 +173,10 @@ const CoursePlayer = () => {
       });
 
       if (newBadges && newBadges.length > 0) {
-        newBadges.forEach((badge: any) => {
+        newBadges.forEach((badge: { badges?: { name?: string | null } }) => {
           toast({
             title: "Badge Earned! 🏆",
-            description: `You earned the "${badge.badges.name}" badge!`,
+            description: `You earned the "${badge.badges?.name || "New Achievement"}" badge!`,
           });
         });
       }
@@ -316,9 +316,9 @@ const CoursePlayer = () => {
                 <div className="prose max-w-none">
                   <p className="text-lg font-semibold mb-4">📖 Course Content</p>
                   <p className="text-muted-foreground">
-                    Text content would be displayed here. This would include
-                    formatted text, images, and interactive elements to help
-                    you learn effectively.
+                    This lesson is currently available as guided reading content.
+                    Work through each section, apply the practical examples, and
+                    mark complete once you’re done.
                   </p>
                 </div>
               </Card>
@@ -342,7 +342,8 @@ const CoursePlayer = () => {
                     🎮 Interactive Exercise
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    Interactive content would be displayed here
+                    This activity is being prepared for release. In the meantime,
+                    complete the lesson and quiz to keep your progress moving.
                   </p>
                 </div>
               </Card>

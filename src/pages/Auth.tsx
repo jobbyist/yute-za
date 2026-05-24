@@ -33,7 +33,7 @@ const Auth = () => {
 
         toast({
           title: "Success!",
-          description: "Account created successfully. You can now sign in.",
+          description: "Account created successfully. Let’s get your profile sorted.",
         });
         
         // Navigate to onboarding after successful signup
@@ -48,7 +48,7 @@ const Auth = () => {
 
         toast({
           title: "Welcome back!",
-          description: "You have successfully signed in.",
+          description: "You’re in. Let’s continue your money journey.",
         });
         
         // Navigate to profile after login
@@ -77,12 +77,12 @@ const Auth = () => {
             />
           </div>
           <h1 className="text-3xl font-bold mb-2">
-            {isSignUp ? "Create Account" : "Welcome Back"}
+            {isSignUp ? "Create your account" : "Welcome back"}
           </h1>
           <p className="text-muted-foreground">
             {isSignUp 
-              ? "Start your financial wellness journey" 
-              : "Sign in to your account"}
+              ? "Join YUTE and start building your financial confidence." 
+              : "Sign in and pick up where you left off."}
           </p>
         </div>
 
@@ -129,7 +129,7 @@ const Auth = () => {
           >
             {isSignUp 
               ? "Already have an account? Sign in" 
-              : "Don't have an account? Sign up"}
+              : "New here? Create your account"}
           </button>
         </div>
       </Card>

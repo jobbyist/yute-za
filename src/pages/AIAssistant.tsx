@@ -34,22 +34,22 @@ const AIAssistant = () => {
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-4">
               <Sparkles className="w-4 h-4 text-primary" />
               <span className="text-sm font-medium text-primary">
-                AI-Powered Financial Guidance
+                AI-powered financial guidance
               </span>
             </div>
             <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
               Meet Gcini'mali Bot
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground">
-              Your 24/7 AI Financial Wellness Companion
+              Your 24/7 AI money coach
             </p>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Get instant answers to your money questions, personalized advice, and support on your journey to financial wellness—all powered by advanced AI.
+              Ask the awkward money questions, get practical answers, and move with confidence — no judgement, just clarity.
             </p>
             <div className="flex gap-4 justify-center">
               <Button size="lg" variant="hero" onClick={scrollToChat}>
                 <MessageCircle className="w-5 h-5 mr-2" />
-                Start Chatting Now
+                Start chatting now
               </Button>
               {!user && (
                 <Button size="lg" variant="outline" onClick={() => navigate("/auth")}>
@@ -69,7 +69,7 @@ const AIAssistant = () => {
               What Gcini'mali Bot Can Do
             </h2>
             <p className="text-lg text-muted-foreground">
-              Your AI assistant is here to help with all your financial questions
+              Real help for real life — from debt stress to long-term goals.
             </p>
           </div>
 
@@ -81,7 +81,7 @@ const AIAssistant = () => {
                 </div>
                 <h3 className="text-xl font-semibold">Budgeting & Saving</h3>
                 <p className="text-muted-foreground">
-                  Get personalized budgeting tips and strategies to save more effectively with practical South African advice.
+                  Build a budget you can actually stick to, with practical tips shaped for South African realities.
                 </p>
               </div>
             </Card>
@@ -93,7 +93,7 @@ const AIAssistant = () => {
                 </div>
                 <h3 className="text-xl font-semibold">Investment Guidance</h3>
                 <p className="text-muted-foreground">
-                  Learn about different investment options, from tax-free savings accounts to unit trusts and more.
+                  Understand your options, from tax-free savings to unit trusts, so you can invest without FOMO.
                 </p>
               </div>
             </Card>
@@ -105,7 +105,7 @@ const AIAssistant = () => {
                 </div>
                 <h3 className="text-xl font-semibold">Financial Planning</h3>
                 <p className="text-muted-foreground">
-                  Set and track financial goals, understand debt management, and plan for your future.
+                  Set clear targets, manage debt smartly, and plan your next money milestone.
                 </p>
               </div>
             </Card>
@@ -121,7 +121,7 @@ const AIAssistant = () => {
               Choose Your AI Assistant
             </h2>
             <p className="text-lg text-muted-foreground">
-              Upgrade to unlock advanced features and personalized guidance
+              Pick the level that matches your grind and goals.
             </p>
           </div>
 
@@ -232,7 +232,7 @@ const AIAssistant = () => {
               Ready to Get Started?
             </h2>
             <p className="text-xl text-muted-foreground">
-              Your AI financial companion is waiting to help you achieve your money goals
+              Your AI companion is ready when you are — let’s make your next money move a smart one.
             </p>
             <Button size="lg" variant="hero" onClick={scrollToChat}>
               <MessageCircle className="w-5 h-5 mr-2" />

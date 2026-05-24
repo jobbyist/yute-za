@@ -17,17 +17,17 @@ export const Hero = () => {
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-full shadow-[var(--shadow-soft)] animate-fade-in">
             <Sparkles className="w-4 h-4 text-primary" />
             <span className="text-sm font-medium text-foreground">
-              SA's Next-Generation Financial Wellness & Literacy Platform
+              Howzit, Mzansi 👋 Your money glow-up starts here
             </span>
           </div>
 
           {/* Main heading */}
           <div className="space-y-4 animate-fade-in">
             <h1 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight">
-              SA's Next-Generation Financial Wellness & Literacy Platform
+              Level up your money game with confidence, not confusion
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
-              Your AI-powered companion for financial growth, learning, and community connection
+              From first payslip to first investment, YUTE keeps it practical, local, and sharp-sharp.
             </p>
           </div>
 
@@ -38,21 +38,21 @@ export const Hero = () => {
                 <TrendingUp className="w-6 h-6 text-primary" />
               </div>
               <h3 className="text-2xl font-bold text-foreground mb-1">10k+</h3>
-              <p className="text-sm text-muted-foreground">Active Members</p>
+              <p className="text-sm text-muted-foreground">Active members</p>
             </div>
             <div className="bg-card border border-border rounded-2xl p-6 shadow-[var(--shadow-medium)]">
               <div className="flex items-center justify-center w-12 h-12 bg-secondary/10 rounded-xl mb-4 mx-auto">
                 <Users className="w-6 h-6 text-secondary" />
               </div>
               <h3 className="text-2xl font-bold text-foreground mb-1">500+</h3>
-              <p className="text-sm text-muted-foreground">Learning Resources</p>
+              <p className="text-sm text-muted-foreground">Learning resources</p>
             </div>
             <div className="bg-card border border-border rounded-2xl p-6 shadow-[var(--shadow-medium)]">
               <div className="flex items-center justify-center w-12 h-12 bg-accent/10 rounded-xl mb-4 mx-auto">
                 <Sparkles className="w-6 h-6 text-accent" />
               </div>
               <h3 className="text-2xl font-bold text-foreground mb-1">AI-Powered</h3>
-              <p className="text-sm text-muted-foreground">Personalized Learning</p>
+              <p className="text-sm text-muted-foreground">Personalised guidance</p>
             </div>
           </div>
 
@@ -60,12 +60,14 @@ export const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in pb-8">
             <Link to="/auth">
               <Button variant="hero" size="lg" className="min-w-[200px]">
-                Get Started Free
+                Start for free
               </Button>
             </Link>
-            <Button variant="outline" size="lg" className="min-w-[200px]">
-              Learn More
-            </Button>
+            <Link to="/academy">
+              <Button variant="outline" size="lg" className="min-w-[200px]">
+                Explore VAULT SCHOOL
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

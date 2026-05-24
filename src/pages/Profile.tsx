@@ -270,8 +270,8 @@ const Profile = () => {
                         Digital Wallet is available for Pro and Elite subscribers
                       </p>
                       <Button onClick={() => toast({
-                        title: "Upgrade Coming Soon",
-                        description: "Subscription upgrades will be available soon",
+                        title: "Upgrade support",
+                        description: "Please contact support and we’ll help you switch to Pro or Elite.",
                       })}>
                         Upgrade to Pro
                       </Button>

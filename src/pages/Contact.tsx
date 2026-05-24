@@ -42,10 +42,10 @@ const Contact = () => {
         <div className="container mx-auto max-w-7xl">
           <div className="text-center space-y-6 max-w-3xl mx-auto">
             <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-              Contact Us
+              Chat to the YUTE team
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground">
-              We're here to help you on your financial wellness journey
+              Need help? No stress — we’ll sort you out quickly.
             </p>
           </div>
         </div>
@@ -94,7 +94,7 @@ const Contact = () => {
                     onChange={(e) =>
                       setFormData({ ...formData, subject: e.target.value })
                     }
-                    placeholder="How can we help?"
+                    placeholder="What do you need help with?"
                     required
                   />
                 </div>
@@ -107,7 +107,7 @@ const Contact = () => {
                     onChange={(e) =>
                       setFormData({ ...formData, message: e.target.value })
                     }
-                    placeholder="Tell us more about your inquiry..."
+                    placeholder="Give us the details so we can assist faster..."
                     rows={6}
                     required
                   />
@@ -127,12 +127,12 @@ const Contact = () => {
                     <Mail className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold mb-2">Email Us</h3>
+                    <h3 className="text-lg font-semibold mb-2">Email us</h3>
                     <p className="text-muted-foreground">
                       support@yute.co.za
                     </p>
                     <p className="text-sm text-muted-foreground mt-1">
-                      We typically respond within 24 hours
+                      Typical response time: within 24 hours
                     </p>
                   </div>
                 </div>
@@ -144,7 +144,7 @@ const Contact = () => {
                     <MessageSquare className="w-6 h-6 text-secondary" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold mb-2">Live Chat</h3>
+                    <h3 className="text-lg font-semibold mb-2">Live chat</h3>
                     <p className="text-muted-foreground">
                       Available Monday - Friday, 9am - 5pm SAST
                     </p>
@@ -161,7 +161,7 @@ const Contact = () => {
                     <Phone className="w-6 h-6 text-accent" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold mb-2">Call Us</h3>
+                    <h3 className="text-lg font-semibold mb-2">Call us</h3>
                     <p className="text-muted-foreground">
                       +27 (0) 10 001 0001
                     </p>
@@ -178,7 +178,7 @@ const Contact = () => {
                     <MapPin className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold mb-2">Visit Us</h3>
+                    <h3 className="text-lg font-semibold mb-2">Visit us</h3>
                     <p className="text-muted-foreground">
                       123 Financial Street<br />
                       Sandton, Johannesburg<br />

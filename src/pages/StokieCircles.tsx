@@ -161,11 +161,12 @@ const StokieCircles = () => {
               🏦 Stokie Circles
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground">
-              Digital Stokvel - Save Money Together, Achieve Goals Faster
+              Digital stokvels that keep everyone accountable
             </p>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Create or join virtual stokvel groups with transparent tracking, secure payments, 
-              and built-in accountability. No more spreadsheets, just smart saving.
+              Create or join virtual stokvel groups with transparent tracking,
+              secure payments, and built-in accountability. No more admin drama,
+              just smart saving.
             </p>
             <div className="flex flex-wrap gap-4 justify-center pt-4">
               <Button 
@@ -197,9 +198,10 @@ const StokieCircles = () => {
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
                   <Users className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold">Create or Join Circles</h3>
+                <h3 className="text-xl font-semibold">Create or join circles</h3>
                 <p className="text-muted-foreground">
-                  Start your own private circle with friends or join public circles to save with like-minded individuals.
+                  Start a private circle with your people, or join a public one
+                  and save with like-minded hustlers.
                 </p>
               </div>
             </Card>
@@ -212,7 +214,8 @@ const StokieCircles = () => {
                 </div>
                 <h3 className="text-xl font-semibold">Set Clear Goals</h3>
                 <p className="text-muted-foreground">
-                  Define your circle's purpose - whether it's a December payout, startup capital, or group investment.
+                  Define your goal clearly — December groceries, business stock,
+                  emergency backup, or group investing.
                 </p>
               </div>
             </Card>
@@ -238,7 +241,8 @@ const StokieCircles = () => {
                 </div>
                 <h3 className="text-xl font-semibold">Transparent Ledger</h3>
                 <p className="text-muted-foreground">
-                  Real-time, immutable ledger shows all contributions and total pot. Full transparency, no trust issues.
+                  Real-time contribution history keeps everyone in the loop.
+                  Full transparency, no “trust me” spreadsheets.
                 </p>
               </div>
             </Card>
@@ -280,7 +284,7 @@ const StokieCircles = () => {
               Featured Circles
             </h2>
             <p className="text-lg text-muted-foreground">
-              Join these active circles or create your own
+              Join these active circles or start your own.
             </p>
           </div>
           {loading ? (
@@ -408,7 +412,7 @@ const StokieCircles = () => {
               Ready to Start Your Savings Journey?
             </h2>
             <p className="text-xl text-muted-foreground">
-              Join thousands of South Africans saving smarter with Stokie Circles
+              Join thousands of South Africans saving smarter with Stokie Circles.
             </p>
             <div className="flex flex-wrap gap-4 justify-center pt-4">
               <Button 
