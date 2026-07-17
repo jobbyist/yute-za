@@ -13,7 +13,8 @@ import { useToast } from "@/hooks/use-toast";
 import { Check, ChevronRight, Sparkles, Target, Shield } from "lucide-react";
 
 const STEPS = 4;
-
+// Enhanced to 6 steps for comprehensive Typeform-style onboarding
+const STEPS = 6;
 const Onboarding = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -22,6 +23,12 @@ const Onboarding = () => {
   const [selectedPlan, setSelectedPlan] = useState<string>("");
   const [financialGoals, setFinancialGoals] = useState("");
   const [riskQuestions, setRiskQuestions] = useState({
+  const [fullName, setFullName] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [monthlyIncome, setMonthlyIncome] = useState("");
+  const [employmentStatus, setEmploymentStatus] = useState("");
+  const [financialKnowledge, setFinancialKnowledge] = useState("");
     q1: "",
     q2: "",
     q3: "",
@@ -57,6 +64,12 @@ const Onboarding = () => {
         .from("profiles")
         .upsert({
           id: user.id,
+          full_name: fullName,
+          date_of_birth: dateOfBirth,
+          phone_number: phoneNumber,
+          monthly_income: parseFloat(monthlyIncome) || null,
+          employment_status: employmentStatus,
+          financial_knowledge_level: financialKnowledge,
           financial_goals: financialGoals,
           risk_tolerance_score: riskScore,
           updated_at: new Date().toISOString(),
@@ -86,10 +99,14 @@ const Onboarding = () => {
       case 1:
         return selectedPlan !== "";
       case 2:
-        return financialGoals.trim() !== "";
+        return fullName.trim() !== "" && dateOfBirth !== "" && phoneNumber.trim() !== "";
       case 3:
-        return riskQuestions.q1 && riskQuestions.q2 && riskQuestions.q3;
+        return monthlyIncome !== "" && employmentStatus !== "" && financialKnowledge !== "";
       case 4:
+        return financialGoals.trim() !== "";
+      case 5:
+        return riskQuestions.q1 && riskQuestions.q2 && riskQuestions.q3;
+      case 6:
         return disclaimerAccepted;
       default:
         return false;
@@ -130,9 +147,9 @@ const Onboarding = () => {
             <div className="space-y-6">
               <div className="text-center mb-8">
                 <Sparkles className="w-12 h-12 mx-auto mb-4 text-primary" />
-                <h2 className="text-3xl font-bold mb-2">Welcome to YUTE!</h2>
+                <h2 className="text-2xl md:text-3xl font-bold mb-2">Welcome to YUTE!</h2>
                 <p className="text-muted-foreground">
-                  Choose a plan to get started on your financial wellness journey
+                  Select your membership tier to begin your financial wellness journey
                 </p>
               </div>
 
@@ -202,18 +219,137 @@ const Onboarding = () => {
 
           {currentStep === 2 && (
             <div className="space-y-6">
-              <div className="text-center mb-8">
-                <Target className="w-12 h-12 mx-auto mb-4 text-primary" />
-                <h2 className="text-3xl font-bold mb-2">Your Financial Goals</h2>
+                <Sparkles className="w-12 h-12 mx-auto mb-4 text-primary" />
+                <h2 className="text-2xl md:text-3xl font-bold mb-2">Let's Get to Know You</h2>
                 <p className="text-muted-foreground">
-                  Tell us what you want to achieve financially
+                  Tell us a bit about yourself so we can personalize your experience
                 </p>
               </div>
 
               <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="fullName">Full Name *</Label>
+                  <Input
+                    id="fullName"
+                    type="text"
+                    placeholder="Enter your full name"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="dateOfBirth">Date of Birth *</Label>
+                  <Input
+                    id="dateOfBirth"
+                    type="date"
+                    value={dateOfBirth}
+                    onChange={(e) => setDateOfBirth(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="phoneNumber">Phone Number *</Label>
+                  <Input
+                    id="phoneNumber"
+                    type="tel"
+                    placeholder="+27 XX XXX XXXX"
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {currentStep === 3 && (
+            <div className="space-y-6">
+              <div className="text-center mb-8">
+                <Target className="w-12 h-12 mx-auto mb-4 text-primary" />
+                <h2 className="text-2xl md:text-3xl font-bold mb-2">Financial Profile</h2>
+                <h2 className="text-3xl font-bold mb-2">Your Financial Goals</h2>
+                  Help us understand your current financial situation
+                  Tell us what you want to achieve financially
+                </p>
+              </div>
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="monthlyIncome">Approximate Monthly Income (ZAR) *</Label>
+                  <Input
+                    id="monthlyIncome"
+                    type="number"
+                    placeholder="e.g., 15000"
+                    value={monthlyIncome}
+                    onChange={(e) => setMonthlyIncome(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Employment Status *</Label>
+                  <RadioGroup value={employmentStatus} onValueChange={setEmploymentStatus}>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="employed-full-time" id="employed-full-time" />
+                      <Label htmlFor="employed-full-time" className="font-normal cursor-pointer">Full-time Employed</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="employed-part-time" id="employed-part-time" />
+                      <Label htmlFor="employed-part-time" className="font-normal cursor-pointer">Part-time Employed</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="self-employed" id="self-employed" />
+                      <Label htmlFor="self-employed" className="font-normal cursor-pointer">Self-Employed</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="student" id="student" />
+                      <Label htmlFor="student" className="font-normal cursor-pointer">Student</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="unemployed" id="unemployed" />
+                      <Label htmlFor="unemployed" className="font-normal cursor-pointer">Currently Unemployed</Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Financial Knowledge Level *</Label>
+                  <RadioGroup value={financialKnowledge} onValueChange={setFinancialKnowledge}>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="beginner" id="beginner" />
+                      <Label htmlFor="beginner" className="font-normal cursor-pointer">Beginner - Just starting my financial journey</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="intermediate" id="intermediate" />
+                      <Label htmlFor="intermediate" className="font-normal cursor-pointer">Intermediate - Have some knowledge and experience</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="advanced" id="advanced" />
+                      <Label htmlFor="advanced" className="font-normal cursor-pointer">Advanced - Confident with financial concepts</Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {currentStep === 4 && (
+            <div className="space-y-6">
+              <div className="text-center mb-8">
+                <Target className="w-12 h-12 mx-auto mb-4 text-primary" />
+                <h2 className="text-2xl md:text-3xl font-bold mb-2">Your Financial Goals</h2>
+                <p className="text-muted-foreground">
+                  What do you want to achieve with YUTE?
+                </p>
+              </div>
+
+
+              <div className="space-y-4">
                 <Label htmlFor="goals">What are your financial goals?</Label>
                 <Textarea
-                  id="goals"
+                  placeholder="E.g., Save for a house deposit, eliminate debt, start investing in the JSE, build a 6-month emergency fund, plan for retirement..."
                   placeholder="E.g., Save for a house deposit, pay off debt, start investing, build an emergency fund..."
                   value={financialGoals}
                   onChange={(e) => setFinancialGoals(e.target.value)}
@@ -228,13 +364,13 @@ const Onboarding = () => {
           )}
 
           {currentStep === 3 && (
-            <div className="space-y-6">
+          {currentStep === 5 && (
               <div className="text-center mb-8">
                 <Shield className="w-12 h-12 mx-auto mb-4 text-primary" />
                 <h2 className="text-3xl font-bold mb-2">Risk Tolerance</h2>
-                <p className="text-muted-foreground">
+                <h2 className="text-2xl md:text-3xl font-bold mb-2">Risk Tolerance Assessment</h2>
                   Help us understand your investment comfort level
-                </p>
+                  Understanding your risk appetite helps us provide better recommendations
               </div>
 
               <div className="space-y-6">
@@ -328,13 +464,13 @@ const Onboarding = () => {
             </div>
           )}
 
-          {currentStep === 4 && (
+          {currentStep === 6 && (
             <div className="space-y-6">
               <div className="text-center mb-8">
                 <Shield className="w-12 h-12 mx-auto mb-4 text-primary" />
-                <h2 className="text-3xl font-bold mb-2">Legal Disclaimer</h2>
+                <h2 className="text-2xl md:text-3xl font-bold mb-2">Terms & Compliance</h2>
                 <p className="text-muted-foreground">
-                  Please read and accept the terms below
+                  Review and accept our terms to complete your registration
                 </p>
               </div>
 
@@ -342,7 +478,7 @@ const Onboarding = () => {
                 <div className="prose prose-sm">
                   <h3 className="font-semibold mb-2">Important Information</h3>
                   <p className="text-sm text-muted-foreground mb-4">
-                    YUTE is a financial wellness and literacy platform designed to provide
+                    educational content, tools, and community support to help you make informed financial decisions in the South African context.
                     educational content and tools to help you make informed financial decisions.
                   </p>
 
@@ -364,9 +500,16 @@ const Onboarding = () => {
 
                   <h4 className="font-semibold mb-2">Privacy & Data</h4>
                   <p className="text-sm text-muted-foreground mb-4">
-                    We take your privacy seriously and will handle your personal information
-                    in accordance with applicable data protection laws. Your data will be
-                    used to personalize your experience and improve our services.
+                    We are committed to protecting your privacy and handle all personal information
+                    in strict compliance with South Africa's Protection of Personal Information Act (POPIA).
+                    Your data will only be used to personalize your YUTE experience and improve our services.
+                    You have the right to access, correct, or delete your personal information at any time.
+                  </p>
+
+                  <h4 className="font-semibold mb-2">POPIA Compliance</h4>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    YUTE complies with all requirements of the Protection of Personal Information Act (POPIA).
+                    You have full control over your data and can request deletion at any time through your profile settings.
                   </p>
                 </div>
               </Card>
@@ -383,8 +526,8 @@ const Onboarding = () => {
                   htmlFor="disclaimer"
                   className="text-sm font-normal cursor-pointer"
                 >
-                  I have read and understood the disclaimer. I acknowledge that YUTE
-                  provides educational content only and does not provide professional
+                  provides educational content only and does not provide professional financial advice.
+                  I consent to the processing of my personal information in accordance with POPIA.
                   financial advice.
                 </Label>
               </div>

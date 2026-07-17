@@ -156,15 +156,14 @@ export const MzansiMoneyManual = () => {
   }
 
   return (
-    <section className="py-16 px-4 bg-muted/30">
+    <section className="py-16 px-4 bg-muted/30" id="mzansi-money-manual">
       <div className="container mx-auto max-w-5xl">
         <div className="text-center mb-12 space-y-4">
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            THE MZANSI MONEY MANUAL
+          <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            Mzansi Money Manual
           </h2>
-          <p className="text-lg text-muted-foreground">
-            Fresh episodes drop every Monday and Wednesday, plus a bonus episode
-            every second Friday.
+          <p className="text-base text-muted-foreground max-w-2xl mx-auto">
+            Your essential guide to mastering personal finance in South Africa. Fresh episodes drop every Monday and Wednesday, plus bonus content every second Friday. These audio resources are exclusive to authenticated users.
           </p>
         </div>
 

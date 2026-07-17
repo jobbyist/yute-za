@@ -10,6 +10,7 @@ import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { DigitalWallet } from "@/components/DigitalWallet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 
 interface ProfileData {
   full_name: string;
@@ -156,6 +157,49 @@ const Profile = () => {
     navigate("/");
   };
 
+  const handleDeleteAccount = async () => {
+    if (!user) return;
+
+    try {
+      // Delete user profile data (POPIA compliance - right to erasure)
+      const { error: profileError } = await supabase
+        .from("profiles")
+        .delete()
+        .eq("id", user.id);
+
+      if (profileError) throw profileError;
+
+      // Delete user subscription data
+      const { error: subscriptionError } = await supabase
+        .from("user_subscriptions")
+        .delete()
+        .eq("user_id", user.id);
+
+      if (subscriptionError) throw subscriptionError;
+
+      // Delete auth user account
+      const { error: authError } = await supabase.auth.admin.deleteUser(user.id);
+
+      if (authError) {
+        console.error("Auth deletion error:", authError);
+      }
+
+      toast({
+        title: "Account Deleted",
+        description: "Your account and all associated data have been permanently deleted in compliance with POPIA regulations.",
+      });
+
+      await signOut();
+      navigate("/");
+    } catch (error: unknown) {
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "Failed to delete account",
+        variant: "destructive",
+      });
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -255,6 +299,35 @@ const Profile = () => {
                     >
                       Sign Out
                     </Button>
+                  </div>
+
+                  {/* Account Deletion Section - POPIA Compliance */}
+                  <div className="pt-8 mt-8 border-t border-destructive/20">
+                    <h3 className="text-lg font-semibold text-destructive mb-2">Danger Zone</h3>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Permanently delete your account and all associated data. This action cannot be undone and complies with POPIA (Protection of Personal Information Act) regulations.
+                    </p>
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button variant="destructive" type="button">
+                          Delete My Account
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            This action cannot be undone. This will permanently delete your account and remove all your data from our servers in compliance with POPIA regulations. All your financial profiles, progress, and personal information will be erased.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction onClick={handleDeleteAccount} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+                            Yes, Delete My Account
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   </div>
                 </form>
               </TabsContent>

@@ -23,23 +23,23 @@ export const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-6">
-            <Link to="/stokie-circles" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium">
+            <Link to="/stokie-circles" className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors font-medium">
               <CircleDollarSign className="w-4 h-4" />
               <span>Stokie Circles</span>
             </Link>
-            <Link to="/academy" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium">
+            <Link to="/academy" className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors font-medium">
               <GraduationCap className="w-4 h-4" />
               <span>VAULT SCHOOL</span>
             </Link>
-            <Link to="/leaderboard" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium">
+            <Link to="/leaderboard" className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors font-medium">
               <Trophy className="w-4 h-4" />
               <span>Leaderboard</span>
             </Link>
-            <Link to="/ai-assistant" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium">
+            <Link to="/ai-assistant" className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors font-medium">
               <Sparkles className="w-4 h-4" />
               <span>AI Assistant</span>
             </Link>
-             <a href="#features" className="text-foreground hover:text-primary transition-colors font-medium">
+            <a href="#features" className="text-sm text-foreground hover:text-primary transition-colors font-medium">
               <b>Explore features →</b>
             </a>
           </div>
@@ -65,24 +65,24 @@ export const Navigation = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 space-y-4 border-t border-border">
-            <Link to="/stokie-circles" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium">
+          <div className="md:hidden py-4 flex flex-col space-y-4 border-t border-border">
+            <Link to="/stokie-circles" className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors font-medium">
               <CircleDollarSign className="w-4 h-4" />
               <span>Stokie Circles</span>
             </Link>
-            <Link to="/academy" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium">
+            <Link to="/academy" className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors font-medium">
               <GraduationCap className="w-4 h-4" />
               <span>VAULT SCHOOL</span>
             </Link>
-            <Link to="/leaderboard" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium">
+            <Link to="/leaderboard" className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors font-medium">
               <Trophy className="w-4 h-4" />
               <span>Leaderboard</span>
             </Link>
-            <Link to="/ai-assistant" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium">
+            <Link to="/ai-assistant" className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors font-medium">
               <Sparkles className="w-4 h-4" />
               <span>AI Assistant</span>
             </Link>
-            <a href="#features" className="text-foreground hover:text-primary transition-colors font-medium">
+            <a href="#features" className="flex items-center text-sm text-foreground hover:text-primary transition-colors font-medium">
               <b>Explore features →</b>
             </a>
             <div className="flex flex-col gap-2 pt-4">

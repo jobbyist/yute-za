@@ -23,11 +23,11 @@ export const Hero = () => {
 
           {/* Main heading */}
           <div className="space-y-4 animate-fade-in">
-            <h1 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight">
-              Level up your money game with confidence, not confusion
+            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight">
+              Master Your Money, Build Your Financial Confidence
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
-              From first payslip to first investment, YUTE keeps it practical, local, and sharp-sharp.
+            <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
+              From your first paycheck to your first investment, YUTE provides practical, locally-relevant financial education and tools for South Africans.
             </p>
           </div>
 

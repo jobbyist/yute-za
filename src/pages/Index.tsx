@@ -1,6 +1,7 @@
 import { Navigation } from "@/components/Navigation";
 import { Hero } from "@/components/Hero";
 import { Features } from "@/components/Features";
+import { PartnersGrid } from "@/components/PartnersGrid";
 import { AIDemo } from "@/components/AIDemo";
 import { Community } from "@/components/Community";
 import { CTA } from "@/components/CTA";
@@ -16,6 +17,7 @@ const Index = () => {
       <main>
         <Hero />
         <Features />
+        <PartnersGrid />
         <AIDemo />
         <MzansiMoneyManual />
         <Community />
@@ -66,7 +68,7 @@ const Index = () => {
                 style={{ width: '100px', height: 'auto' }}
               />
             </div>
-            <p className="text-xs mb-2">
+              © 2026 YUTE. All rights reserved.
               © 2025 YUTE. All rights reserved.
             </p>
             <p className="text-xs text-muted-foreground/70">
