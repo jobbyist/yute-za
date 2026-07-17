@@ -17,11 +17,15 @@ import {
   ArrowRight,
   CheckCircle2,
   Award,
+  Lock,
+  Crown,
 } from "lucide-react";
 import { Tables } from "@/integrations/supabase/types";
 
 type Course = Tables<"courses">;
 type UserProgress = Tables<"user_course_progress">;
+type LearningPath = Tables<"learning_paths">;
+type UserSubscription = Tables<"user_subscriptions">;
 
 const CoursePlayer = () => {
   const { courseId } = useParams<{ courseId: string }>();
@@ -29,7 +33,10 @@ const CoursePlayer = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [course, setCourse] = useState<Course | null>(null);
+  const [learningPath, setLearningPath] = useState<LearningPath | null>(null);
   const [progress, setProgress] = useState<UserProgress | null>(null);
+  const [userSubscription, setUserSubscription] = useState<UserSubscription | null>(null);
+  const [hasAccess, setHasAccess] = useState(false);
   const [loading, setLoading] = useState(true);
   const [completing, setCompleting] = useState(false);
 
@@ -47,12 +54,43 @@ const CoursePlayer = () => {
       // Fetch course
       const { data: courseData, error: courseError } = await supabase
         .from("courses")
-        .select("*")
+        .select("*, learning_paths(*)")
         .eq("id", courseId)
         .single();
 
       if (courseError) throw courseError;
       setCourse(courseData);
+      
+      // Get learning path separately for TypeScript safety
+      const { data: pathData } = await supabase
+        .from("learning_paths")
+        .select("*")
+        .eq("id", courseData.learning_path_id)
+        .single();
+      
+      setLearningPath(pathData);
+
+      // Check user subscription
+      const { data: subscriptionData } = await supabase
+        .from("user_subscriptions")
+        .select("*")
+        .eq("user_id", user.id)
+        .eq("status", "active")
+        .single();
+
+      setUserSubscription(subscriptionData);
+
+      // Check access based on tier
+      const userTier = subscriptionData?.tier || "free";
+      const courseTier = pathData?.tier || "free";
+      
+      const access = checkAccess(courseTier, userTier);
+      setHasAccess(access);
+
+      if (!access) {
+        setLoading(false);
+        return;
+      }
 
       // Fetch or create progress
       const { data: progressData, error: progressError } = await supabase
@@ -94,6 +132,23 @@ const CoursePlayer = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const checkAccess = (courseTier: string, userTier: string): boolean => {
+    // Free courses are accessible to everyone
+    if (courseTier === "free") return true;
+    
+    // Pro courses are accessible to Pro and Elite members
+    if (courseTier === "pro" && (userTier === "pro" || userTier === "elite")) {
+      return true;
+    }
+    
+    // Elite courses are only accessible to Elite members
+    if (courseTier === "elite" && userTier === "elite") {
+      return true;
+    }
+    
+    return false;
   };
 
   const updateProgress = async (progressPercentage: number) => {
@@ -212,6 +267,51 @@ const CoursePlayer = () => {
         <div className="flex flex-col items-center justify-center min-h-[50vh] gap-4">
           <div className="text-lg">Course not found</div>
           <Button onClick={() => navigate("/academy")}>Back to Academy</Button>
+        </div>
+      </div>
+    );
+  }
+
+  // Show access restriction message if user doesn't have access
+  if (!hasAccess && learningPath) {
+    const requiredTier = learningPath.tier === "elite" ? "Elite" : "Pro";
+    return (
+      <div className="min-h-screen">
+        <Navigation />
+        <div className="pt-24 pb-16 px-4">
+          <div className="container mx-auto max-w-4xl">
+            <Card className="p-12 text-center">
+              <div className="flex justify-center mb-6">
+                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center">
+                  {learningPath.tier === "elite" ? (
+                    <Crown className="w-12 h-12 text-white" />
+                  ) : (
+                    <Lock className="w-12 h-12 text-white" />
+                  )}
+                </div>
+              </div>
+              <h1 className="text-3xl font-bold mb-4">
+                {requiredTier} Membership Required
+              </h1>
+              <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
+                This course is part of our {requiredTier} tier content. Upgrade your membership to access 
+                exclusive financial literacy courses, expert insights, and advanced learning materials.
+              </p>
+              <div className="flex gap-4 justify-center">
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700"
+                  onClick={() => navigate("/pricing")}
+                >
+                  <Crown className="w-4 h-4 mr-2" />
+                  Upgrade to {requiredTier}
+                </Button>
+                <Button variant="outline" onClick={() => navigate("/academy")}>
+                  Back to Academy
+                </Button>
+              </div>
+            </Card>
+          </div>
         </div>
       </div>
     );

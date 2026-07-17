@@ -40,3 +40,27 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Floating cards animation */
+.card-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.card-float-delayed {
+  animation: float 3s ease-in-out infinite;
+  animation-delay: 1.5s;
+}
+
+/* Pulse glow effect for interactive elements */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px hsl(158 64% 52% / 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px hsl(158 64% 52% / 0.6);
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}

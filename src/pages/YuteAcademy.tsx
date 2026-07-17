@@ -170,7 +170,7 @@ const YuteAcademy = () => {
               {learningPaths.map((path) => (
                 <Card
                   key={path.id}
-                  className="p-6 hover:shadow-lg transition-shadow cursor-pointer"
+                  className="p-6 hover:shadow-lg transition-all cursor-pointer animate-float"
                   onClick={() => navigate(`/academy/path/${path.id}`)}
                   style={{
                     borderColor: path.color || undefined,
@@ -231,7 +231,7 @@ const YuteAcademy = () => {
             </h2>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
-            <Card className="p-6">
+            <Card className="p-6 animate-float">
               <div className="space-y-4">
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
                   <BookOpen className="w-6 h-6 text-primary" />
@@ -244,7 +244,7 @@ const YuteAcademy = () => {
               </div>
             </Card>
 
-            <Card className="p-6">
+            <Card className="p-6 animate-float-delayed">
               <div className="space-y-4">
                 <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center">
                   <Trophy className="w-6 h-6 text-secondary" />
@@ -258,7 +258,7 @@ const YuteAcademy = () => {
             </Card>
 
             <Card className="p-6">
-              <div className="space-y-4">
+            <Card className="p-6 animate-float">
                 <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
                   <Target className="w-6 h-6 text-accent" />
                 </div>
