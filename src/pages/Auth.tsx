@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -35,8 +36,8 @@ const Auth = () => {
           title: "Success!",
           description: "Account created successfully. Let’s get your profile sorted.",
         });
-        
-        // Navigate to onboarding after successful signup
+              ? "Join YUTE and start your journey to financial wellness." 
+              : "Welcome back to your financial wellness journey."}
         navigate("/onboarding");
       } else {
         const { error } = await supabase.auth.signInWithPassword({
@@ -128,8 +129,11 @@ const Auth = () => {
             className="text-sm text-primary hover:underline"
           >
             {isSignUp 
-              ? "Already have an account? Sign in" 
-              : "New here? Create your account"}
+              ? "Already have an account? Sign in here" 
+              : "New to YUTE? Create your free account"}
+          </button>
+          <p className="mt-4 text-xs text-muted-foreground">
+            By signing up, you agree to our <Link to="/terms" className="underline">Terms of Service</Link> and <Link to="/privacy" className="underline">Privacy Policy</Link>
           </button>
         </div>
       </Card>
